@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form addrulepath="/administrator/components/com_licensing/models/rules">
+    <fieldset name="names">
+        <field
+                name="id"
+                type="hidden"
+        />
+        <field
+                name="licenseType"
+                type="Lictype"
+                label="COM_LICENSING_LICENSES_HEAD_TYPE"
+                description="COM_LICENSING_LICENSES_HEAD_TYPE_DESC"
+                required="true"
+                class="input-xlarge"
+        />
+        <field
+                name="name"
+                type="text"
+                label="COM_LICENSING_LICENSES_HEAD_NAME"
+                description="COM_LICENSING_LICENSES_HEAD_NAME_DESC"
+                required="true"
+                autocomplete="off"
+                class="input-xlarge"
+        />
+        <field
+                name="number"
+                type="text"
+                label="COM_LICENSING_LICENSES_HEAD_NUMBER"
+                description="COM_LICENSING_LICENSES_HEAD_NUMBER_DESC"
+                required="true"
+                autocomplete="off"
+                class="input-xlarge"
+        />
+        <field
+                name="dogovor"
+                type="text"
+                label="COM_LICENSING_LICENSES_HEAD_DOGOVOR"
+                description="COM_LICENSING_LICENSES_HEAD_DOGOVOR_DESC"
+                autocomplete="off"
+                class="input-xlarge"
+        />
+        <field
+                name="dateStart"
+                type="calendar"
+                label="COM_LICENSING_LICENSES_START"
+                description="COM_LICENSING_LICENSES_START_DESC"
+                required="true"
+                class="input-xlarge"
+        />
+        <field
+                name="dateExpires"
+                type="calendar"
+                label="COM_LICENSING_LICENSES_END"
+                description="COM_LICENSING_LICENSES_END_DESC"
+                required="true"
+                class="input-xlarge"
+        />
+        <field
+                name="dateExpires"
+                type="calendar"
+                label="COM_LICENSING_LICENSES_END"
+                description="COM_LICENSING_LICENSES_END_DESC"
+                required="false"
+                class="input-xlarge"
+        />
+        <field
+                name="unlim"
+                type="list"
+                label="COM_LICENSING_LICENSES_UNLIM"
+                description="COM_LICENSING_LICENSES_UNLIM_DESC"
+                class="inputbox"
+                default="0"
+        >
+            <option value="0">COM_LICENSING_NO</option>
+            <option value="1">COM_LICENSING_YES</option>
+        </field>
+        <field
+                name="available"
+                type="list"
+                label="COM_LICENSING_LICENSES_AVALIABLE"
+                description="COM_LICENSING_LICENSES_AVALIABLE_DESC"
+                class="inputbox"
+                size="1"
+                default="1"
+        >
+            <option value="0">COM_LICENSING_NO</option>
+            <option value="1">COM_LICENSING_YES</option>
+        </field>
+        <field
+                name="state"
+                type="list"
+                label="JSTATUS"
+                description="JFIELD_PUBLISHED_DESC"
+                class="inputbox"
+                size="1"
+                default="1"
+        >
+            <option value="1">JPUBLISHED</option>
+            <option value="0">JUNPUBLISHED</option>
+            <option value="2">JARCHIVED</option>
+            <option value="-2">JTRASHED</option>
+        </field>
+    </fieldset>
+</form>

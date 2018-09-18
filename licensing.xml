@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<extension type="component" version="3.8" method="upgrade">
+	<name>COM_LICENSING</name>
+	<creationDate>04.09.2018</creationDate>
+	<author>asharikov</author>
+	<authorEmail>asharikov@bmstu.ru</authorEmail>
+	<authorUrl>http://ais.bmstu.ru</authorUrl>
+	<copyright>A copyright</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<version>1.1.1</version>
+	<description>COM_LICENSING_XML_DESCRIPTION</description>
+
+	<!-- Scripts to run on installation -->
+	<scriptfile>script.php</scriptfile>
+
+	<!-- Runs on install -->
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install/mysql/mysql.sql</file>
+		</sql>
+	</install>
+
+	<!-- Runs on update -->
+	<update>
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql/</schemapath>
+		</schemas>
+	</update>
+
+	<!-- Runs on uninstall -->
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/uninstall/mysql/mysql.sql</file>
+		</sql>
+	</uninstall>
+
+
+	<!-- Media files -->
+	<media folder="media/com_licensing" destination="com_licensing">
+		<folder>css</folder>
+		<folder>images</folder>
+		<folder>js</folder>
+	</media>
+
+	<!-- Front-end files -->
+	<files folder="components/com_licensing">
+		<filename>licensing.php</filename>
+		<filename>controller.php</filename>
+		<filename>router.php</filename>
+		<folder>controllers</folder>
+		<folder>language</folder>
+		<folder>layouts</folder>
+		<folder>models</folder>
+		<folder>views</folder>
+	</files>
+
+	<!-- Back-end files -->
+	<administration>
+		<!-- Menu entries -->
+		<menu view="licensing">COM_LICENSING</menu>
+		<submenu>
+			<!--
+				Note that all & must be escaped to &amp; for the file to be valid
+				XML and be parsed by the installer
+			-->
+			<menu link="option=com_licensing">COM_LICENSING</menu>
+			<menu view="claims">COM_LICENSING_MENU_CLAIMS</menu>
+			<menu view="keys">COM_LICENSING_MENU_KEYS</menu>
+			<menu view="softwares">COM_LICENSING_MENU_SOFTWARES</menu>
+			<menu view="licenses">COM_LICENSING_MENU_LICENSES</menu>
+			<menu view="companies">COM_LICENSING_MENU_COMPANIES</menu>
+			<menu view="lictypes">COM_LICENSING_MENU_LICTYPES</menu>
+			<menu view="keytypes">COM_LICENSING_MENU_KEYTYPES</menu>
+		</submenu>
+
+		<!-- Core files -->
+		<files folder="administrator/components/com_licensing">
+			<filename>licensing.php</filename>
+			<filename>access.xml</filename>
+			<filename>config.xml</filename>
+			<filename>controller.php</filename>
+			<filename>LICENSE.txt</filename>
+			<folder>controllers</folder>
+			<folder>helpers</folder>
+			<folder>language</folder>
+			<folder>models</folder>
+			<folder>sql</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
+		</files>
+	</administration>
+
+	<!-- Update servers -->
+	<updateservers>
+		<server type="extension" priority="1" name="licensing">https://ais.bmstu.ru/Thrid/updates/licensing.xml</server>
+	</updateservers>
+</extension>

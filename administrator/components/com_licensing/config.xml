@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<fieldset name="ldap_ais" label="COM_LICENSING_OPTION_LDAP_AIS" description="COM_LICENSING_OPTION_LDAP_AIS_DESC">
+		<field name="ldap_ais_server"
+			   type="text"
+			   label="COM_LICENSING_OPTION_LDAP_SERVER"
+			   description="COM_LICENSING_OPTION_LDAP_SERVER_DESC"
+			   component="com_licensing"
+			   section="component">
+		</field>
+		<field name="ldap_ais_port"
+			   type="text"
+			   label="COM_LICENSING_OPTION_LDAP_PORT"
+			   description="COM_LICENSING_OPTION_LDAP_PORT_DESC"
+			   component="com_licensing"
+			   section="component">
+		</field>
+		<field name="ldap_ais_username"
+			   type="text"
+			   label="COM_LICENSING_OPTION_LDAP_USERNAME"
+			   description="COM_LICENSING_OPTION_LDAP_USERNAME_DESC"
+			   component="com_licensing"
+			   section="component">
+		</field>
+		<field name="ldap_ais_password"
+			   type="password"
+			   label="COM_LICENSING_OPTION_LDAP_PASSWORD"
+			   description="COM_LICENSING_OPTION_LDAP_PASSWORD_DESC"
+			   component="com_licensing"
+			   section="component">
+		</field>
+		<field name="ldap_ais_protocol"
+			   type="list"
+			   label="COM_LICENSING_OPTION_LDAP_VERSION"
+			   description="COM_LICENSING_OPTION_LDAP_VERSION_DESC"
+			   component="com_licensing"
+			   section="component">
+			<option value="">-</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+		</field>
+		<field name="ldap_ais_referals"
+			   type="list"
+			   label="COM_LICENSING_OPTION_LDAP_REFERALS"
+			   description="COM_LICENSING_OPTION_LDAP_REFERALS_DESC"
+			   component="com_licensing"
+			   section="component">
+			<option value="0">COM_LICENSING_NO</option>
+			<option value="1">COM_LICENSING_YES</option>
+		</field>
+		<field name="ldap_ais_ignore_cert"
+			   type="list"
+			   label="COM_LICENSING_OPTION_LDAP_IGNORE_CERT"
+			   description="COM_LICENSING_OPTION_LDAP_IGNORE_CERT_DESC"
+			   component="com_licensing"
+			   section="component">
+			<option value="0">COM_LICENSING_NO</option>
+			<option value="1">COM_LICENSING_YES</option>
+		</field>
+		<field name="ldap_ais_base_dn"
+			   type="text"
+			   label="COM_LICENSING_OPTION_LDAP_BASE_DN"
+			   description="COM_LICENSING_OPTION_LDAP_BASE_DN_DESC"
+			   component="com_licensing"
+			   section="component">
+		</field>
+		<field name="ldap_ais_filter_employer"
+			   type="text"
+			   label="COM_LICENSING_OPTION_LDAP_FILTER_EMPLOYERS"
+			   description="COM_LICENSING_OPTION_LDAP_FILTER_EMPLOYERS_DESC"
+			   component="com_licensing"
+			   section="component">
+		</field>
+	</fieldset>
+	<fieldset name="ldap_ok" label="COM_LICENSING_OPTION_LDAP_OK" description="COM_LICENSING_OPTION_LDAP_OK_DESC">
+		<field name="ldap_ok_server"
+			   type="text"
+			   label="COM_LICENSING_OPTION_LDAP_SERVER"
+			   description="COM_LICENSING_OPTION_LDAP_SERVER_DESC"
+			   component="com_licensing"
+			   section="component">
+		</field>
+		<field name="ldap_ok_port"
+			   type="text"
+			   label="COM_LICENSING_OPTION_LDAP_PORT"
+			   description="COM_LICENSING_OPTION_LDAP_PORT_DESC"
+			   component="com_licensing"
+			   section="component">
+		</field>
+		<field name="ldap_ok_username"
+			   type="text"
+			   label="COM_LICENSING_OPTION_LDAP_USERNAME"
+			   description="COM_LICENSING_OPTION_LDAP_USERNAME_DESC"
+			   component="com_licensing"
+			   section="component">
+		</field>
+		<field name="ldap_ok_password"
+			   type="password"
+			   label="COM_LICENSING_OPTION_LDAP_PASSWORD"
+			   description="COM_LICENSING_OPTION_LDAP_PASSWORD_DESC"
+			   component="com_licensing"
+			   section="component">
+		</field>
+		<field name="ldap_ok_protocol"
+			   type="list"
+			   label="COM_LICENSING_OPTION_LDAP_VERSION"
+			   description="COM_LICENSING_OPTION_LDAP_VERSION_DESC"
+			   component="com_licensing"
+			   section="component">
+			<option value="">-</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+		</field>
+		<field name="ldap_ok_referals"
+			   type="list"
+			   label="COM_LICENSING_OPTION_LDAP_REFERALS"
+			   description="COM_LICENSING_OPTION_LDAP_REFERALS_DESC"
+			   component="com_licensing"
+			   section="component">
+			<option value="0">COM_LICENSING_NO</option>
+			<option value="1">COM_LICENSING_YES</option>
+		</field>
+		<field name="ldap_ok_ignore_cert"
+			   type="list"
+			   label="COM_LICENSING_OPTION_LDAP_IGNORE_CERT"
+			   description="COM_LICENSING_OPTION_LDAP_IGNORE_CERT_DESC"
+			   component="com_licensing"
+			   section="component">
+			<option value="0">COM_LICENSING_NO</option>
+			<option value="1">COM_LICENSING_YES</option>
+		</field>
+		<field name="ldap_ok_base_dn"
+			   type="text"
+			   label="COM_LICENSING_OPTION_LDAP_BASE_DN"
+			   description="COM_LICENSING_OPTION_LDAP_BASE_DN_DESC"
+			   component="com_licensing"
+			   section="component">
+		</field>
+	</fieldset>
+	<fieldset name="notyfy" label="COM_LICENSING_OPTION_NEW_NOTIFY" description="COM_LICENSING_OPTION_NEW_ORDER_NOTIFY">
+		<field name="notify_new_order"
+			   type="list"
+			   label="COM_LICENSING_OPTION_NEW_NOTIFY_ENABLED"
+			   component="com_licensing"
+			   section="component">
+			<option value="0">COM_LICENSING_NO</option>
+			<option value="1">COM_LICENSING_YES</option>
+		</field>
+		<field name="notify_new_order_theme"
+			   type="text"
+			   label="COM_LICENSING_OPTION_NEW_ORDER_NOTIFY_THEME"
+			   component="com_licensing"
+			   section="component">
+		</field>
+		<field name="notify_new_order_text"
+			   type="text"
+			   label="COM_LICENSING_OPTION_NEW_ORDER_NOTIFY_TEXT"
+			   component="com_licensing"
+			   section="component">
+		</field>
+	</fieldset>
+	<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
+		<field name="rules"
+			   type="rules"
+			   label="JCONFIG_PERMISSIONS_LABEL"
+			   filter="rules"
+			   component="com_licensing"
+			   section="component">
+		</field>
+	</fieldset>
+</config>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form addrulepath="/administrator/components/com_licensing/models/rules">
+    <fieldset name="names">
+        <field
+                name="id"
+                type="hidden"
+        />
+        <field
+                name="claimID"
+                type="Claim"
+                label="COM_LICENSING_ORDER_HEAD_CLAIM"
+                description="COM_LICENSING_ORDER_HEAD_CLAIM_DESC"
+                required="true"
+                class="input-xlarge"
+        />
+        <field
+                name="softwareID"
+                type="Software"
+                label="COM_LICENSING_SOFTWARE_HEAD_NAME"
+                description="COM_LICENSING_SOFTWARE_HEAD_NAME_DESC"
+                required="true"
+                autocomplete="off"
+                class="input-xlarge"
+        />
+        <field
+                name="cnt"
+                type="text"
+                label="COM_LICENSING_ORDER_COUNT"
+                description="COM_LICENSING_ORDER_COUNT"
+                required="true"
+                autocomplete="off"
+                class="input-xlarge"
+        />
+    </fieldset>
+</form>
