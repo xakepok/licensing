@@ -18,4 +18,9 @@ defined('_JEXEC') or die;
  * @package  licensing
  * @since    1.0
  */
-class LicensingController extends BaseController { }
+class LicensingController extends BaseController {
+    public function display($cachable = false, $urlparams = array())
+    {
+        return parent::display($cachable, $urlparams);
+    }
+}
