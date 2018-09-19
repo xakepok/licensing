@@ -138,6 +138,14 @@
 		</field>
 	</fieldset>
 	<fieldset name="notyfy" label="COM_LICENSING_OPTION_NEW_NOTIFY" description="COM_LICENSING_OPTION_NEW_ORDER_NOTIFY">
+		<field name="notify_users"
+			   type="list"
+			   label="COM_LICENSING_OPTION_NEW_ORDER_NOTIFY_USER"
+			   component="com_licensing"
+			   section="component">
+			<option value="0">COM_LICENSING_NO</option>
+			<option value="1">COM_LICENSING_YES</option>
+		</field>
 		<field name="notify_new_order"
 			   type="list"
 			   label="COM_LICENSING_OPTION_NEW_NOTIFY_ENABLED"

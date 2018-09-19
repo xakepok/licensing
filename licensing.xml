@@ -92,6 +92,6 @@
 
 	<!-- Update servers -->
 	<updateservers>
-		<server type="extension" priority="1" name="licensing">https://ais.bmstu.ru/Thrid/updates/licensing.xml</server>
+		<server type="extension" priority="1" name="licensing">http://ais.bmstu.ru/Thrid/updates/licensing.xml</server>
 	</updateservers>
 </extension>

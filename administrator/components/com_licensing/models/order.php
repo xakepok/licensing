@@ -44,7 +44,6 @@ class LicensingModelOrder extends AdminModel {
 	    {
 		    if (!strlen($table->$field)) $table->$field = NULL;
     	}
-    	$table->status_user = JFactory::getUser()->id;
         parent::prepareTable($table);
     }
 

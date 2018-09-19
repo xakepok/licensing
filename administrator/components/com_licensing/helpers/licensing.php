@@ -19,6 +19,38 @@ class LicensingHelper
 	}
 
 	/* Уведомление админов о новой заявке на лицензию */
+	public static function sendKeys($keys)
+    {
+        if (self::getParams('notify_users') == false) return false;
+        $claims = self::getEmailUserNotify();
+        foreach ($claims as $claim)
+        {
+            $mailer =& JFactory::getMailer();
+            $config =& JFactory::getConfig();
+            $sender = array($config->get('config.mailfrom'), $config->get('config.fromname'));
+            $mailer->setSender($sender);
+            $mailer->setSubject('Ключи');
+
+            $email = $claim->email;
+            $fio = $claim->empl_fio;
+            $body = "";
+            foreach ($keys as $key)
+            {
+                if ($key->id == $claim->id)
+                {
+                    $body .= sprintf("%s: %s (%s шт.)", $key->software, $key->key, $key->cnt);
+                    $body .= "<br>";
+                }
+            }
+            $mailer->addRecipient($email, $fio);
+            $mailer->isHtml(true);
+            $mailer->setBody($body);
+            $mailer->Send();
+        }
+        return true;
+    }
+
+	/* Уведомление админов о новой заявке на лицензию */
 	public static function notifyAdmin($claimID)
     {
         if (self::getParams('notify_new_order') == false) return false;
@@ -59,6 +91,21 @@ class LicensingHelper
             ->from('`#__user_usergroup_map` as `l`')
             ->leftJoin('`#__users` as `u` ON `u`.`id` = `l`.`user_id`')
             ->where($db->quoteName('group_id')." > 4");
+        return $db->setQuery($query)->loadObjectList();
+    }
+
+    /*
+     * Данные пользователя для отправки ключей
+     */
+    static function getEmailUserNotify()
+    {
+        $cid = implode(', ', JFactory::getApplication()->input->get('cid', array(), 'array'));
+        $db =& JFactory::getDbo();
+        $query = $db->getQuery(true);
+        $query
+            ->select('`id`, `email`, `empl_fio`')
+            ->from('`#__licensing_claims`')
+            ->where("`id` IN ({$cid})");
         return $db->setQuery($query)->loadObjectList();
     }
 

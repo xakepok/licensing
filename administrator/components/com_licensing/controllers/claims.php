@@ -17,6 +17,11 @@ class LicensingControllerClaims extends AdminController
         {
             $model->decline();
         }
+        if ($this->getTask() == 'publish')
+        {
+            $keys = $model->accept();
+            LicensingHelper::sendKeys($keys);
+        }
         parent::publish();
     }
 }
