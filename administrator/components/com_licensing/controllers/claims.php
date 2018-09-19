@@ -16,6 +16,7 @@ class LicensingControllerClaims extends AdminController
         if ($this->getTask() == 'trash')
         {
             $model->decline();
+            LicensingHelper::sendDecline();
         }
         if ($this->getTask() == 'publish')
         {

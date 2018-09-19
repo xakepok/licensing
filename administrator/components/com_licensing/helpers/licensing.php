@@ -18,6 +18,30 @@ class LicensingHelper
 		JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_KEYTYPES'), 'index.php?option=com_licensing&view=keytypes', $vName == 'keytypes');
 	}
 
+	/* Уведомляем юзера об отклонении заявки */
+	public static function sendDecline()
+    {
+        if (self::getParams('notify_users_decline') == false) return false;
+        $claims = self::getEmailUserNotify();
+        foreach ($claims as $claim)
+        {
+            $mailer =& JFactory::getMailer();
+            $config =& JFactory::getConfig();
+            $sender = array($config->get('config.mailfrom'), $config->get('config.fromname'));
+            $mailer->setSender($sender);
+            $mailer->setSubject(self::getParams('notify_user_theme_decline'));
+            $mailer->addReplyTo(self::getParams('notify_user_replyto_decline'));
+            $email = $claim->email;
+            $fio = $claim->empl_fio;
+            $body = sprintf(self::getParams('notify_user_text_decline'), $claim->id);
+            $mailer->addRecipient($email, $fio);
+            $mailer->isHtml(true);
+            $mailer->setBody($body);
+            $mailer->Send();
+        }
+        return true;
+    }
+
 	/* Уведомление админов о новой заявке на лицензию */
 	public static function sendKeys($keys)
     {
@@ -30,7 +54,7 @@ class LicensingHelper
             $sender = array($config->get('config.mailfrom'), $config->get('config.fromname'));
             $mailer->setSender($sender);
             $mailer->setSubject(self::getParams('notify_user_theme'));
-
+            $mailer->addReplyTo(self::getParams('notify_user_replyto'));
             $email = $claim->email;
             $fio = $claim->empl_fio;
             $body = "";
