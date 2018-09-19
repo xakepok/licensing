@@ -71,6 +71,13 @@
 			   component="com_licensing"
 			   section="component">
 		</field>
+		<field name="ldap_ais_filter_guid"
+			   type="text"
+			   label="COM_LICENSING_OPTION_LDAP_FILTER_GUID"
+			   description="COM_LICENSING_OPTION_LDAP_FILTER_GUID_DESC"
+			   component="com_licensing"
+			   section="component">
+		</field>
 	</fieldset>
 	<fieldset name="ldap_ok" label="COM_LICENSING_OPTION_LDAP_OK" description="COM_LICENSING_OPTION_LDAP_OK_DESC">
 		<field name="ldap_ok_server"
@@ -138,6 +145,10 @@
 		</field>
 	</fieldset>
 	<fieldset name="notyfy" label="COM_LICENSING_OPTION_NEW_NOTIFY" description="COM_LICENSING_OPTION_NEW_ORDER_NOTIFY">
+		<field name="spacer_notify_user"
+			   type="spacer"
+			   label="COM_LICENSING_OPTION_NOTIFY_NEW_ORDER_USER"
+			   class="inputbox" />
 		<field name="notify_users"
 			   type="list"
 			   label="COM_LICENSING_OPTION_NEW_ORDER_NOTIFY_USER"
@@ -146,6 +157,46 @@
 			<option value="0">COM_LICENSING_NO</option>
 			<option value="1">COM_LICENSING_YES</option>
 		</field>
+		<field name="notify_user_theme"
+			   type="text"
+			   label="COM_LICENSING_OPTION_NEW_ORDER_NOTIFY_THEME"
+			   component="com_licensing"
+			   section="component">
+		</field>
+		<field name="notify_user_text"
+			   type="text"
+			   label="COM_LICENSING_OPTION_NEW_ORDER_NOTIFY_TEXT"
+			   component="com_licensing"
+			   section="component">
+		</field>
+		<field name="spacer_notify_user_decline"
+			   type="spacer"
+			   label="COM_LICENSING_OPTION_NOTIFY_NEW_ORDER_USER_DECLINE"
+			   class="inputbox" />
+		<field name="notify_users_decline"
+			   type="list"
+			   label="COM_LICENSING_OPTION_NEW_ORDER_NOTIFY_USER"
+			   component="com_licensing"
+			   section="component">
+			<option value="0">COM_LICENSING_NO</option>
+			<option value="1">COM_LICENSING_YES</option>
+		</field>
+		<field name="notify_user_theme_decline"
+			   type="text"
+			   label="COM_LICENSING_OPTION_NEW_ORDER_NOTIFY_THEME"
+			   component="com_licensing"
+			   section="component">
+		</field>
+		<field name="notify_user_text_decline"
+			   type="text"
+			   label="COM_LICENSING_OPTION_NEW_ORDER_NOTIFY_TEXT"
+			   component="com_licensing"
+			   section="component">
+		</field>
+		<field name="spacer_notify_admin"
+			   type="spacer"
+			   label="COM_LICENSING_OPTION_NOTIFY_NEW_ORDER_ADMIN"
+			   class="inputbox" />
 		<field name="notify_new_order"
 			   type="list"
 			   label="COM_LICENSING_OPTION_NEW_NOTIFY_ENABLED"
@@ -154,6 +205,12 @@
 			<option value="0">COM_LICENSING_NO</option>
 			<option value="1">COM_LICENSING_YES</option>
 		</field>
+		<field name="notify_new_order_group"
+			   type="usergroup"
+			   label="COM_LICENSING_OPTION_NEW_ORDER_NOTIFY_GROUP"
+			   description="COM_LICENSING_OPTION_NEW_ORDER_NOTIFY_GROUP_DESC"
+			   component="com_licensing"
+			   section="component" />
 		<field name="notify_new_order_theme"
 			   type="text"
 			   label="COM_LICENSING_OPTION_NEW_ORDER_NOTIFY_THEME"

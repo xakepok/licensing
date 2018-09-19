@@ -29,7 +29,7 @@ class LicensingHelper
             $config =& JFactory::getConfig();
             $sender = array($config->get('config.mailfrom'), $config->get('config.fromname'));
             $mailer->setSender($sender);
-            $mailer->setSubject('Ключи');
+            $mailer->setSubject(self::getParams('notify_user_theme'));
 
             $email = $claim->email;
             $fio = $claim->empl_fio;
@@ -38,7 +38,7 @@ class LicensingHelper
             {
                 if ($key->id == $claim->id)
                 {
-                    $body .= sprintf("%s: %s (%s шт.)", $key->software, $key->key, $key->cnt);
+                    $body .= sprintf(self::getParams('notify_user_text'), $key->software, $key->key, $key->cnt);
                     $body .= "<br>";
                 }
             }
@@ -80,17 +80,18 @@ class LicensingHelper
     }
 
     /*
-     * Список email пользователей для уведомления о новой заявке
+     * Список email админов для уведомления о новой заявке
      */
     static function getEmailsNotify()
     {
         $db =& JFactory::getDbo();
         $query = $db->getQuery(true);
+        $mingroup = self::getParams('notify_new_order_group');
         $query
             ->select('`u`.`email`')
             ->from('`#__user_usergroup_map` as `l`')
             ->leftJoin('`#__users` as `u` ON `u`.`id` = `l`.`user_id`')
-            ->where($db->quoteName('group_id')." > 4");
+            ->where($db->quoteName('group_id')." >= {$mingroup}");
         return $db->setQuery($query)->loadObjectList();
     }
 
@@ -109,7 +110,7 @@ class LicensingHelper
         return $db->setQuery($query)->loadObjectList();
     }
 
-    public function getParams($name, $default = false)
+    public static function getParams($name, $default = false)
     {
         $options = JComponentHelper::getComponent('com_licensing')->getParams();
         return $options->get($name, $default);
