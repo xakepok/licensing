@@ -44,7 +44,7 @@ class LicensingModelLicense extends AdminModel {
 
     protected function prepareTable($table)
     {
-    	$nulls = array('dogovor', 'unlim', 'dateExpires'); //Поля, которые NULL
+    	$nulls = array('dogovor', 'unlim', 'dateExpires', 'number'); //Поля, которые NULL
 	    foreach ($nulls as $field)
 	    {
 		    if (!strlen($table->$field)) $table->$field = NULL;

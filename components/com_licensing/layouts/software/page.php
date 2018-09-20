@@ -33,13 +33,13 @@ extract($displayData);
             <tdoby>
                 <?php foreach ($software as $soft): ?>
                 <tr>
-                    <td style="border: 1px solid black;"><?php echo $soft->software;?></td>
-                    <td style="border: 1px solid black;"><?php echo $soft->cnt;?></td>
-                    <td style="border: 1px solid black;"><?php echo $soft->license;?></td>
-                    <td style="border: 1px solid black;"><?php echo $soft->number;?></td>
-                    <td style="border: 1px solid black;"><?php echo $soft->dogovor;?></td>
-                    <td style="border: 1px solid black;"><?php echo $soft->start;?></td>
-                    <td style="border: 1px solid black;"><?php echo $soft->expire;?></td>
+                    <td style="border: 1px solid black;"><?php echo $soft['software'];?></td>
+                    <td style="border: 1px solid black;"><?php echo $soft['cnt'];?></td>
+                    <td style="border: 1px solid black;"><?php echo $soft['license'];?></td>
+                    <td style="border: 1px solid black;"><?php echo $soft['number'];?></td>
+                    <td style="border: 1px solid black;"><?php echo $soft['contract'];?></td>
+                    <td style="border: 1px solid black;"><?php echo $soft['dateStart'];?></td>
+                    <td style="border: 1px solid black;"><?php echo $soft['dateExpires'];?></td>
                 </tr>
                 <?php endforeach; ?>
             </tdoby>

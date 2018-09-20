@@ -55,13 +55,13 @@ class LicensingModelLicenses extends ListModel
         {
             $arr = array();
             $arr['name'] = $item->name;
-            $arr['number'] = $item->number;
             $arr['dateStart'] = $item->dateStart;
             if (JFactory::getApplication()->input->getString('format', 'html') == 'html')
             {
                 $arr['type'] = $item->type;
                 $dogovor = (!empty($item->dogovor)) ? $item->dogovor : JText::_('COM_LICENSING_LICENSES_LIC_NO_INFO');
                 $arr['dateExpires'] = ($item->unlim != 1) ? $item->dateExpires : JText::_('COM_LICENSING_LICENSES_LIC_UNEXPECT');
+                $arr['number'] = (!empty($item->number)) ? $item->number : JText::_('COM_LICENSING_LICENSES_LIC_NUMBER_NO');
             }
             else
             {
@@ -74,6 +74,7 @@ class LicensingModelLicenses extends ListModel
                 {
                     $arr['unlimited'] = 1;
                 }
+                $arr['number'] = $item->number;
             }
             $arr['contract'] = $dogovor;
             $result[] = $arr;

@@ -27,7 +27,6 @@
                 type="text"
                 label="COM_LICENSING_LICENSES_HEAD_NUMBER"
                 description="COM_LICENSING_LICENSES_HEAD_NUMBER_DESC"
-                required="true"
                 autocomplete="off"
                 class="input-xlarge"
         />

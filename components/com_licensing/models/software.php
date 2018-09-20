@@ -23,13 +23,11 @@ class LicensingModelSoftware extends ListModel
     {
         $db =& $this->getDbo();
         $query = $db->getQuery(true);
-        $format = LicensingHelper::getParams('format_date_site', '%d.%m.%Y');
+        $format = (JFactory::getApplication()->input->getString('format', 'html') == 'html') ? 'site' : 'api';
+        $format = LicensingHelper::getParams("format_date_{$format}", '%d.%m.%Y');
         $query
-            ->select("`s`.`name` as `software`, `l`.`name` as `license`, `l`.`number`")
-            ->select("IF(`s`.`unlim`=1,'".JText::_('COM_LICENSING_LICENSES_LIC_SOFT_UNLIM')."',`s`.`count`)as `cnt`")
-            ->select("IF(`l`.`dogovor` IS NULL,'".JText::_('COM_LICENSING_LICENSES_LIC_NO_INFO')."',`l`.`dogovor`) as `dogovor`")
-            ->select("DATE_FORMAT(`l`.`dateStart`,'{$format}') as `start`")
-            ->select("IF(`l`.`unlim`=1,'".JText::_('COM_LICENSING_LICENSES_LIC_UNEXPECT')."',DATE_FORMAT(`l`.`dateExpires`,'".$format."')) as `expire`")
+            ->select("`s`.`name` as `software`, `l`.`name` as `license`, `l`.`number`, `l`.`unlim` as `unlimLic`, `s`.`unlim` as `unlimSoft`, `s`.`countAvalible` as `cnt`, `l`.`dogovor`")
+            ->select("DATE_FORMAT(`l`.`dateStart`,'{$format}') as `dateStart`, DATE_FORMAT(`l`.`dateExpires`,'{$format}') as `dateExpires`")
             ->from("`#__licensing_software` as `s`")
             ->leftJoin("`#__licensing_licenses` as `l` ON `l`.`id` = `s`.`licenseID`")
             ->where("(`s`.`state` = 1 AND `l`.`state` = 1) AND (`l`.`dateExpires` > CURRENT_DATE() OR `l`.`unlim` = 1)");
@@ -48,6 +46,49 @@ class LicensingModelSoftware extends ListModel
         $query->order($db->escape($orderCol . ' ' . $orderDirn));
 
         return $query;
+    }
+
+    public function getItems()
+    {
+        $items = parent::getItems();
+        $result = array();
+        foreach ($items as $item) {
+            $arr = array();
+            $arr['software'] = $item->software;
+            $arr['license'] = $item->license;
+            $arr['dateStart'] = $item->dateStart;
+            if (JFactory::getApplication()->input->getString('format', 'html') == 'html')
+            {
+                $dogovor = (!empty($item->dogovor)) ? $item->dogovor : JText::_('COM_LICENSING_LICENSES_LIC_NO_INFO');
+                $arr['number'] = (!empty($item->number)) ? $item->number : JText::_('COM_LICENSING_LICENSES_LIC_NUMBER_NO');
+                $arr['dateExpires'] = ($item->unlimLic != 1) ? $item->dateExpires : JText::_('COM_LICENSING_LICENSES_LIC_UNEXPECT');
+                $arr['cnt'] = ($item->unlimSoft != 1) ? $item->cnt : JText::_('COM_LICENSING_LICENSES_LIC_SOFT_UNLIM');
+            }
+            else
+            {
+                $dogovor = (!empty($item->dogovor)) ? $item->dogovor : JText::_('COM_LICENSING_LICENSES_LIC_NO_INFO');
+                $arr['number'] = $item->number;
+                if ($item->unlimLic != 1)
+                {
+                    $arr['dateExpires'] = $item->dateExpires;
+                }
+                else
+                {
+                    $arr['unlimited'] = 1;
+                }
+                if ($item->unlimSoft != 1)
+                {
+                    $arr['soft']['cnt'] = $item->cnt;
+                }
+                else
+                {
+                    $arr['soft']['unlimited'] = '1';
+                }
+            }
+            $arr['contract'] = $dogovor;
+            $result[] = $arr;
+        }
+        return $result;
     }
 
     protected function populateState($ordering = null, $direction = null)

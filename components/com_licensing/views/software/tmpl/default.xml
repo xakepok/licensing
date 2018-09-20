@@ -5,4 +5,16 @@
 			<![CDATA[COM_LICENSING_SOFTWARE_DESC_MENU]]>
 		</message>
 	</layout>
+	<fields name="request">
+		<fieldset name="request">
+			<field name="format"
+				   type="list"
+				   label="COM_LICENSING_VIEW_MENU_FORMAT"
+				   description="COM_LICENSING_VIEW_MENU_FORMAT_DESC"
+				   default="html">
+				<option value="html">HTML</option>
+				<option value="raw">RAW</option>
+			</field>
+		</fieldset>
+	</fields>
 </metadata>
