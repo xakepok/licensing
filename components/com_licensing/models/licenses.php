@@ -21,11 +21,12 @@ class LicensingModelLicenses extends ListModel
     {
         $db =& $this->getDbo();
         $query = $db->getQuery(true);
+        $format = LicensingHelper::getParams('format_date_site', '%d.%m.%Y');
         $query
             ->select("`l`.`name`, `t`.`type`, `l`.`number`")
             ->select("IF(`l`.`dogovor` IS NULL,'".JText::_('COM_LICENSING_LICENSES_LIC_NO_INFO')."',`l`.`dogovor`) as `dogovor`")
-            ->select("DATE_FORMAT(`dateStart`,'%d.%m.%Y') as `dateStart`")
-            ->select("IF(`unlim`=1,'".JText::_('COM_LICENSING_LICENSES_LIC_UNEXPECT')."',DATE_FORMAT(`dateExpires`,'%d.%m.%Y')) as `dateExpires`")
+            ->select("DATE_FORMAT(`dateStart`,'{$format}') as `dateStart`")
+            ->select("IF(`unlim`=1,'".JText::_('COM_LICENSING_LICENSES_LIC_UNEXPECT')."',DATE_FORMAT(`dateExpires`,'{$format}')) as `dateExpires`")
             ->from($db->quoteName("#__licensing_licenses")." as ".$db->quoteName("l"))
             ->leftJoin($db->quoteName("#__licensing_type_licenses")." as ".$db->quoteName("t")." ON `t`.`id`=`l`.`licenseType`")
             ->where("(`l`.`dateExpires` >= CURRENT_DATE() OR `l`.`unlim`=1) AND `l`.`state` = 1 AND `t`.`state` = 1")
