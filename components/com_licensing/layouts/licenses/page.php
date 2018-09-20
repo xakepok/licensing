@@ -30,12 +30,12 @@ extract($displayData);
             <tdoby>
                 <?php foreach ($licenses as $license): ?>
                 <tr>
-                    <td style="border: 1px solid black;"><?php echo $license->name;?></td>
-                    <td style="border: 1px solid black;"><?php echo $license->type;?></td>
-                    <td style="border: 1px solid black;"><?php echo $license->number;?></td>
-                    <td style="border: 1px solid black;"><?php echo $license->dogovor;?></td>
-                    <td style="border: 1px solid black;"><?php echo $license->dateStart;?></td>
-                    <td style="border: 1px solid black;"><?php echo $license->dateExpires;?></td>
+                    <td style="border: 1px solid black;"><?php echo $license['name'];?></td>
+                    <td style="border: 1px solid black;"><?php echo $license['type'];?></td>
+                    <td style="border: 1px solid black;"><?php echo $license['number'];?></td>
+                    <td style="border: 1px solid black;"><?php echo $license['contract'];?></td>
+                    <td style="border: 1px solid black;"><?php echo $license['dateStart'];?></td>
+                    <td style="border: 1px solid black;"><?php echo $license['dateExpires'];?></td>
                 </tr>
                 <?php endforeach; ?>
             </tdoby>
