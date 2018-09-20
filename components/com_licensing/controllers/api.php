@@ -11,16 +11,12 @@ class LicensingControllerApi extends BaseController
 
     public function getSoftware()
     {
-        $model = $this->getModel('Software');
-        $items = $model->getItems();
-        jexit(json_encode($items));
+        jexit(JText::_('COM_LICENSING_ERROR_METHOD_OBSOLETE'));
     }
 
     public function getLicenses()
     {
-        $model = $this->getModel('Licenses');
-        $items = $model->getItems();
-        jexit(json_encode($items));
+        jexit(JText::_('COM_LICENSING_ERROR_METHOD_OBSOLETE'));
     }
 
     public function display($cachable = false, $urlparams = array())
