@@ -24,7 +24,7 @@ class LicensingModelLicenses extends ListModel
         $format = (JFactory::getApplication()->input->getString('format', 'html') == 'html') ? 'site' : 'api';
         $format = LicensingHelper::getParams("format_date_{$format}", '%d.%m.%Y');
         $query
-            ->select('`l`.`name`, `t`.`type`, `l`.`number`, `l`.`dogovor`, `unlim`')
+            ->select('`l`.`id`, `l`.`name`, `t`.`type`, `l`.`number`, `l`.`dogovor`, `unlim`')
             ->select("DATE_FORMAT(`dateStart`,'{$format}') as `dateStart`, DATE_FORMAT(`dateExpires`,'{$format}') as `dateExpires`")
             ->from('`#__licensing_licenses` as `l`')
             ->leftJoin("`#__licensing_type_licenses` as `t` ON `t`.`id`=`l`.`licenseType`")
@@ -54,6 +54,7 @@ class LicensingModelLicenses extends ListModel
         foreach ($items as $item)
         {
             $arr = array();
+            $arr['id'] = $item->id;
             $arr['name'] = $item->name;
             $arr['dateStart'] = $item->dateStart;
             if (JFactory::getApplication()->input->getString('format', 'html') == 'html')

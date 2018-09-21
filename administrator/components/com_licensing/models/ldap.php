@@ -17,7 +17,7 @@ class LicensingModelLdap extends BaseDatabaseModel
         return parent::getInstance($type, $prefix, $config);
     }
 
-    public function searchUsers($fio, $uid=false)
+    public function searchUsers($fio, $uid=false, $guid=false)
     {
         $ldap = $this->connect('ais');
         ldap_bind($ldap, LicensingHelper::getParams("ldap_ais_username"), LicensingHelper::getParams("ldap_ais_password"));
@@ -28,6 +28,10 @@ class LicensingModelLdap extends BaseDatabaseModel
         else
         {
             $filter = sprintf(LicensingHelper::getParams('ldap_ais_filter_guid'), $uid);
+        }
+        if ($guid !== false)
+        {
+            $filter = "x500UniqueIdentifier={$guid}";
         }
         $search = ldap_search($ldap, LicensingHelper::getParams("ldap_ais_base_dn"), $filter, array("x500UniqueIdentifier", "cn", "mail", "ou", "telephoneNumber", "title", "uid"));
         $results = ldap_get_entries($ldap, $search);

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_LICENSING_VIEW_MENU_AUTH">
+		<message>
+			<![CDATA[COM_LICENSING_VIEW_MENU_AUTH_DESC]]>
+		</message>
+	</layout>
+</metadata>
