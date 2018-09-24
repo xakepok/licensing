@@ -16,19 +16,6 @@ abstract class LicensingHtmlFilters
         return JHtml::_('select.genericlist', $options, 'filter_state', $attribs, 'value', 'text', $selected, null, true);
     }
 
-    //Фильтр состояний заявки
-    public static function stateclaim($selected)
-    {
-        $options = array();
-
-        $options[] = JHtml::_('select.option', '', 'COM_LICENSING_CLAIMS_STATUS_ACCEPT');
-        $options = array_merge($options, self::stateClaimOptions());
-
-        $attribs = 'class="inputbox" onchange="this.form.submit()"';
-
-        return JHtml::_('select.genericlist', $options, 'filter_state', $attribs, 'value', 'text', $selected, null, true);
-    }
-
     //Фильтр заявок
     public static function claim($selected)
     {
@@ -221,26 +208,23 @@ abstract class LicensingHtmlFilters
     public static function stateOptions()
     {
         $options = array();
-
-        $options[] = JHtml::_('select.option', '1', 'JPUBLISHED');
-        $options[] = JHtml::_('select.option', '0', 'JUNPUBLISHED');
-        $options[] = JHtml::_('select.option', '2', 'JARCHIVED');
-        $options[] = JHtml::_('select.option', '-2', 'JTRASHED');
-        $options[] = JHtml::_('select.option', '*', 'JALL');
-
-        return $options;
-    }
-
-    //Список состояний модели заявок
-    public static function stateClaimOptions()
-    {
-        $options = array();
-
-        $options[] = JHtml::_('select.option', '1', 'COM_LICENSING_CLAIMS_STATUS_ACCEPT');
-        $options[] = JHtml::_('select.option', '0', 'COM_LICENSING_CLAIMS_STATUS_IN_WORK');
-        $options[] = JHtml::_('select.option', '2', 'COM_LICENSING_CLAIMS_STATUS_ARCHIVED');
-        $options[] = JHtml::_('select.option', '-2', 'COM_LICENSING_CLAIMS_STATUS_DECLINE');
-        $options[] = JHtml::_('select.option', '*', 'JALL');
+        $view = JFactory::getApplication()->input->getString('view');
+        if ($view != 'claim')
+        {
+            $options[] = JHtml::_('select.option', '1', 'JPUBLISHED');
+            $options[] = JHtml::_('select.option', '0', 'JUNPUBLISHED');
+            $options[] = JHtml::_('select.option', '2', 'JARCHIVED');
+            $options[] = JHtml::_('select.option', '-2', 'JTRASHED');
+            $options[] = JHtml::_('select.option', '*', 'JALL');
+        }
+        else
+        {
+            $options[] = JHtml::_('select.option', '1', 'COM_LICENSING_CLAIMS_STATUS_ACCEPT');
+            $options[] = JHtml::_('select.option', '0', 'COM_LICENSING_CLAIMS_STATUS_IN_WORK');
+            $options[] = JHtml::_('select.option', '2', 'COM_LICENSING_CLAIMS_STATUS_ARCHIVED');
+            $options[] = JHtml::_('select.option', '-2', 'COM_LICENSING_CLAIMS_STATUS_DECLINE');
+            $options[] = JHtml::_('select.option', '*', 'JALL');
+        }
 
         return $options;
     }
