@@ -18,6 +18,25 @@ class LicensingHelper
 		JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_KEYTYPES'), 'index.php?option=com_licensing&view=keytypes', $vName == 'keytypes');
 	}
 
+	/* Проверяем, студент или нет */
+    public static function isStudent($guid)
+    {
+        $xml = @file_get_contents("http://ud-dream.eu.bmstu.ru/api/v2/php_get_student?api_key=ed5b34dbbf2ae840af4e23084502794d16a258eb28ef52bda0b0cac03f49a53c&guid={$guid}");
+        return ($xml === false) ? false : true;
+    }
+
+	/* Получаем GUID юзера из базы */
+    public static function getUserGuid()
+    {
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+        $fieldID = $db->quote(self::getGuidField('guid'));
+        $userID = $db->quote(JFactory::getUser()->id);
+        $query->select('`value`')
+            ->from('#__fields_values')
+            ->where("`field_id` = {$fieldID} AND `item_id` = {$userID}");
+        return $db->setQuery($query, 0, 1)->loadResult();
+    }
 
     /* Получаем ID дополнительного поля для хранения GUIDа */
     public static function getGuidField($name)
@@ -30,14 +49,13 @@ class LicensingHelper
         return $db->setQuery($query, 0, 1)->loadResult();
     }
 
-
     /* Возвращаем читабельный статус заявки на ПО во фронтенде */
 	public static function getStatus($id)
     {
         $statuses = array(
             0 => 'COM_LICENSING_CLAIMS_STATUS_IN_WORK',
             1 => 'COM_LICENSING_CLAIMS_STATUS_ACCEPT',
-            -1 => 'COM_LICENSING_CLAIMS_STATUS_DECLINE',
+            -2 => 'COM_LICENSING_CLAIMS_STATUS_DECLINE',
             2 => 'COM_LICENSING_CLAIMS_STATUS_ARCHIVED'
         );
         return JText::_($statuses[$id]);

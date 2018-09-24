@@ -11,10 +11,16 @@ class LicensingModelClaims extends ListModel
             $config['filter_fields'] = array(
                 '`id`',
                 '`dat`',
-                '`state`'
+                '`c`.`state`'
             );
         }
         parent::__construct($config);
+    }
+
+    public function getStatus()
+    {
+        $guid = LicensingHelper::getUserGuid();
+        return LicensingHelper::isStudent($guid);
     }
 
     protected function _getListQuery()
@@ -22,22 +28,18 @@ class LicensingModelClaims extends ListModel
         $db =& $this->getDbo();
         $query = $db->getQuery(true);
         $format = LicensingHelper::getParams('format_date_site');
-        $user = JFactory::getUser();
+        $guid = $db->quote(trim(LicensingHelper::getUserGuid()));
         $query
             ->select("`c`.`id`, DATE_FORMAT(`dat`,'{$format}') as `dat`, `u`.`name` as `manager`, `c`.`state`")
             ->from("`#__licensing_claims` as `c`")
             ->leftJoin('`#__users` as `u` ON `u`.`id` = `c`.`status_user`')
-            ->where("`user_id` = {$user->id}");
+            ->where("`c`.`empl_guid` LIKE {$guid}");
 
         /* Фильтруем по состоянию. */
         $published = $this->getState('filter.state');
         if (is_numeric($published))
         {
-            $query->where('`state` = ' . (int) $published);
-        }
-        elseif ($published === '')
-        {
-            $query->where('(`state` = 0 OR `state` = 1)');
+            $query->where('`c`.`state` = ' . (int) $published);
         }
 
         /* Сортировка */

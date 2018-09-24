@@ -1,6 +1,3 @@
-<div id="j-sidebar-container" class="span2">
-    <?php echo $this->sidebar; ?>
-</div>
 <div id="j-main-container" class="span10">
     <form action="<?php echo JRoute::_('index.php?option=com_licensing&view=claims'); ?>" method="post" name="adminForm" id="adminForm">
         <fieldset>
