@@ -5,7 +5,7 @@ class LicensingRouter extends JComponentRouterBase
     public function build(&$query)
     {
         $segments = array();
-        if ($query['view'] == 'licenses' || $query['view'] == 'software') {
+        if ($query['view'] == 'licenses' || $query['view'] == 'software' || $query['view'] == 'claims') {
             unset($query['view']);
         }
         return $segments;
@@ -13,7 +13,7 @@ class LicensingRouter extends JComponentRouterBase
     public function parse(&$segments)
     {
         $vars = array();
-        $menu = JMenu::getInstance('mgt')->getActive();
+        $menu = JMenu::getInstance('mainmenu')->getActive();
         switch ($menu->query["view"]) {
             case 'licenses': {
                 $vars['view'] = 'licenses';
