@@ -14,6 +14,7 @@ if (!Factory::getUser()->authorise('core.manage', 'com_licensing'))
 // Require the helper
 require_once JPATH_COMPONENT_ADMINISTRATOR . '/helpers/licensing.php';
 JLoader::register('LicensingHtmlFilters', dirname(__FILE__) . '/helpers/html/filters.php');
+JLoader::register('FieldsHelper', JPATH_ADMINISTRATOR . '/components/com_fields/helpers/fields.php');
 
 // Execute the task
 $controller = BaseController::getInstance('licensing');

@@ -14,7 +14,10 @@ class LicensingModelAuth extends BaseDatabaseModel
     {
         $ldap = BaseDatabaseModel::getInstance('Ldap', 'LicensingModel');
         $users = $ldap->searchUsers('', '', $this->guid);
+
         $user = $this->parseUser($users);
+        $fieldID = LicensingHelper::getGuidField('guid');
+        unset($user['guid']);
         try
         {
             $u = JUser::getInstance();
@@ -23,15 +26,38 @@ class LicensingModelAuth extends BaseDatabaseModel
             $credentials = array('username' => $u->username, 'password' => 'test');
             $options = array('remember' => true);
             JFactory::getApplication()->login($credentials, $options);
+            $u = JFactory::getUser();
+            $userID = $u->id;
+            $this->insertNewGuid($fieldID, $userID, $this->guid);
         }
         catch (Exception $exception)
         {
             sprintf("Error: %s", $exception->getMessage());
         }
-        JFactory::getApplication()->redirect('index.php');
+        JFactory::getApplication()->redirect('/');
         jexit();
 
         return $user;
+    }
+
+    /* Вставляем запись с новым юзером гуида */
+    private function insertNewGuid($fieldID, $uid, $guid)
+    {
+        $db =& $this->getDbo();
+        $query = $db->getQuery(true);
+        $query->select("value")
+            ->from("#__fields_values")
+            ->where("`field_id` = '{$fieldID}' AND `item_id` = '{$uid}'");
+        $cnt = count($db->setQuery($query, 0, 1)->loadObjectList());
+        if ($cnt < 1)
+        {
+            $values = array($db->quote($fieldID), $db->quote($uid), $db->quote($guid));
+            $query = $db->getQuery(true);
+            $query->insert("`#__fields_values`")
+                ->columns("`field_id`, `item_id`, `value`")
+                ->values(implode(", ", $values));
+            $db->setQuery($query)->execute();
+        }
     }
 
     private function parseUser($users)

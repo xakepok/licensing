@@ -18,6 +18,31 @@ class LicensingHelper
 		JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_KEYTYPES'), 'index.php?option=com_licensing&view=keytypes', $vName == 'keytypes');
 	}
 
+
+    /* Получаем ID дополнительного поля для хранения GUIDа */
+    public static function getGuidField($name)
+    {
+        $db =& JFactory::getDbo();
+        $query = $db->getQuery(true);
+        $query->select("`id`")
+            ->from("`#__fields`")
+            ->where("`name` LIKE '{$name}' AND `context` LIKE 'com_users.user'");
+        return $db->setQuery($query, 0, 1)->loadResult();
+    }
+
+
+    /* Возвращаем читабельный статус заявки на ПО во фронтенде */
+	public static function getStatus($id)
+    {
+        $statuses = array(
+            0 => 'COM_LICENSING_CLAIMS_STATUS_IN_WORK',
+            1 => 'COM_LICENSING_CLAIMS_STATUS_ACCEPT',
+            -1 => 'COM_LICENSING_CLAIMS_STATUS_DECLINE',
+            2 => 'COM_LICENSING_CLAIMS_STATUS_ARCHIVED'
+        );
+        return JText::_($statuses[$id]);
+    }
+
 	/* Уведомляем юзера об отклонении заявки */
 	public static function sendDecline()
     {
