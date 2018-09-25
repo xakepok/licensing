@@ -15,7 +15,7 @@
         />
         <field
                 name="structure"
-                type="text"
+                type="Structure"
                 label="COM_LICENSING_CLAIMS_HEAD_STRUCTURE"
                 description="COM_LICENSING_CLAIMS_HEAD_STRUCTURE"
                 required="true"

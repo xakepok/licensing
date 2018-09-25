@@ -38,8 +38,8 @@ JHtml::_('formbehavior.chosen', 'select');
                                 <div class="controls">
                                     <?php echo $soft->input; ?>
                                     <?php
-                                    if ($soft->name == "jform[empl_guid]") : ?>
-                                        <input type="button" value="<?php echo JText::_('COM_LICENSING_FILTER_READ');?>" id="readEmpl" />
+                                    if ($soft->name == "jform[structure]") : ?>
+                                        <input type="button" value="<?php echo JText::_('COM_LICENSING_FILTER_SEARCH');?>" id="readStruct" />
                                     <?php endif; ?>
                                 </div>
                                 <br>

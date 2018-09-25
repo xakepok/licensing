@@ -17,6 +17,20 @@ class LicensingModelLdap extends BaseDatabaseModel
         return parent::getInstance($type, $prefix, $config);
     }
 
+    /* Получение подразделения */
+    public function searchStructure($guid)
+    {
+        $ldap = $this->connect('ok');
+        ldap_bind($ldap, LicensingHelper::getParams("ldap_ok_username"), LicensingHelper::getParams("ldap_ok_password"));
+        $filter = sprintf("title=%s", $guid);
+
+        $search = ldap_search($ldap, LicensingHelper::getParams("ldap_ok_base_dn"), $filter, array("memberOf"));
+        $results = ldap_get_entries($ldap, $search);
+        ldap_close($ldap);
+        return $results;
+    }
+
+    /* Получение пользователя */
     public function searchUsers($fio, $uid=false, $guid=false)
     {
         $ldap = $this->connect('ais');

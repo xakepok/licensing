@@ -13,16 +13,21 @@ class JFormFieldEmployer extends JFormFieldList  {
         $this->employer = JFactory::getApplication()->input->getString('fio');
         $this->uid = JFactory::getApplication()->input->getString('uid', false);
         $this->claim_id = JFactory::getApplication()->input->getString('id', false);
+        $this->guid = JFactory::getApplication()->input->getString('guid', false);
 
-        if ($this->employer != "") {
+        if ($this->employer != "" || $this->guid !== false) {
             $ldap = BaseDatabaseModel::getInstance('Ldap', 'LicensingModel');
-            if (!$this->uid)
+            if (!$this->uid && $this->guid === false && $this->uid === false)
             {
                 $users = $ldap->searchUsers($this->employer);
             }
             else
             {
                 $users = $ldap->searchUsers($this->employer, $this->uid);
+            }
+            if ($this->guid !== false)
+            {
+                $users = $ldap->searchUsers('', '', $this->guid);
             }
 
             $options = array();
@@ -68,5 +73,5 @@ class JFormFieldEmployer extends JFormFieldList  {
         return $options;
     }
 
-    private $employer, $uid, $claim_id;
+    private $employer, $uid, $claim_id, $guid;
 }
