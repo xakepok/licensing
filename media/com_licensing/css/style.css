@@ -1,0 +1,21 @@
+.claim-info {
+  width: 250px;
+  float: left;
+}
+.claim-info table tr td {
+  vertical-align: top;
+}
+
+.software-order-table {
+  border-collapse: collapse;
+}
+.software-order-table tr th {
+  border: 1px solid black;
+}
+.software-order-table tr td {
+  border: 1px solid black;
+  text-align: center;
+  padding: 0px 2px;
+}
+
+/*# sourceMappingURL=style.css.map */

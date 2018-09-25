@@ -18,6 +18,11 @@ class LicensingViewClaims extends HtmlView
 	    $this->pagination = $this->get('Pagination');
 	    $this->student = $this->get('Status');
 		// Display it all
+
+
+
 		return parent::display($tpl);
 	}
+
+
 }

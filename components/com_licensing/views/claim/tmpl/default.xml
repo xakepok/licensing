@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_LICENSING_USERMENU_CLAIM">
+		<message>
+			<![CDATA[COM_LICENSING_USERMENU_CLAIM_DESC]]>
+		</message>
+	</layout>
+	<fields name="request" addfieldpath="/administrator/components/com_licensing/models/fields">
+		<fieldset name="request">
+			<field
+				name="id"
+				type="Claim"
+				label="ID"
+				description="ID" />
+		</fieldset>
+	</fields>
+</metadata>
