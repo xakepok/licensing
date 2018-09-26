@@ -10,27 +10,22 @@ class JFormFieldEmployer extends JFormFieldList  {
 
     protected function getOptions()
     {
-        $this->employer = JFactory::getApplication()->input->getString('fio');
-        $this->uid = JFactory::getApplication()->input->getString('uid', false);
+        $this->employer = JFactory::getApplication()->input->getString('fio', false);
         $this->claim_id = JFactory::getApplication()->input->getString('id', false);
         $this->guid = JFactory::getApplication()->input->getString('guid', false);
-
-        if ($this->employer != "" || $this->guid !== false) {
+        $options = array();
+        if ($this->claim_id === false && $this->guid === false && $this->employer === false) $options[] = JHtml::_('select.option', '', '');
+        if ($this->claim_id === false)
+        {
             $ldap = BaseDatabaseModel::getInstance('Ldap', 'LicensingModel');
-            if (!$this->uid && $this->guid === false && $this->uid === false)
+            if ($this->employer !== false)
             {
                 $users = $ldap->searchUsers($this->employer);
-            }
-            else
-            {
-                $users = $ldap->searchUsers($this->employer, $this->uid);
             }
             if ($this->guid !== false)
             {
                 $users = $ldap->searchUsers('', '', $this->guid);
             }
-
-            $options = array();
 
             foreach ($users as $item => $p) {
                 if ($p["cn"][0] === NULL) continue;
@@ -52,18 +47,11 @@ class JFormFieldEmployer extends JFormFieldList  {
         }
         else
         {
-            if (!$this->claim_id)
-            {
-                $options[] = JHtml::_('select.option', '', '');
-            }
-            else
-            {
-                $db =& JFactory::getDbo();
-                $query = $db->getQuery(true);
-                $query->select('`empl_guid`, `empl_fio`')->from('#__licensing_claims')->where("`id` = {$this->claim_id}");
-                $result = $db->setQuery($query)->loadAssoc();
-                $options[] = JHtml::_('select.option', $result['empl_guid'], $result["empl_fio"]);
-            }
+            $db =& JFactory::getDbo();
+            $query = $db->getQuery(true);
+            $query->select('`empl_guid`, `empl_fio`')->from('#__licensing_claims')->where("`id` = {$this->claim_id}");
+            $result = $db->setQuery($query)->loadAssoc();
+            $options[] = JHtml::_('select.option', $result['empl_guid'], $result["empl_fio"]);
         }
 
         reset($options);
