@@ -13,6 +13,7 @@ class JFormFieldEmployer extends JFormFieldList  {
         $this->employer = JFactory::getApplication()->input->getString('fio', false);
         $this->claim_id = JFactory::getApplication()->input->getString('id', false);
         $this->guid = JFactory::getApplication()->input->getString('guid', false);
+
         $options = array();
         if ($this->claim_id === false && $this->guid === false && $this->employer === false) $options[] = JHtml::_('select.option', '', '');
         if ($this->claim_id === false)
