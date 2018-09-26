@@ -29,7 +29,7 @@ class LicensingModelAuth extends BaseDatabaseModel
             JFactory::getApplication()->login($credentials, $options);
             $u = JFactory::getUser();
             $userID = $u->id;
-            $this->insertNewGuid($fieldID, $userID, $this->guid);
+            if ($userID != 0 && $fieldID != 0) $this->insertNewGuid($fieldID, $userID, $this->guid);
         }
         catch (Exception $exception)
         {
