@@ -24,7 +24,7 @@ class JFormFieldEmployer extends JFormFieldList  {
             }
             if ($this->guid !== false)
             {
-                $users = $ldap->searchUsers('', '', $this->guid);
+                $users = $ldap->searchUsers(false, $this->guid);
             }
 
             foreach ($users as $item => $p) {
@@ -43,6 +43,7 @@ class JFormFieldEmployer extends JFormFieldList  {
                 );
 
                 $options[] = JHtml::_('select.option', $arr["data-uid"], $arr["data-fio"], $params);
+                if ($this->guid !== false) break;
             }
         }
         else
