@@ -24,7 +24,10 @@ function setData()
     document.querySelector("#jform_empl_fio").value = fio.options[fio.selectedIndex].getAttribute('data-fio');
 }
 window.onload = function () {
-    setData();
+    var url_string = window.location.href; // www.test.com?filename=test
+    var url = new URL(url_string);
+    var claim = url.searchParams.get("id");
+    if (claim == undefined) setData();
     var field = document.getElementById("filterEmpl");
     var clr = document.getElementById("filterEmplClr");
     var fio = document.getElementById("jform_empl_guid");
