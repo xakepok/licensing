@@ -131,7 +131,7 @@ class LicensingHelper
         {
             if (self::checkUserNotify($user->id)) $mailer->addRecipient($user->email, $user->name);
         }
-        $url = JHtml::link("http://localhost/administrator/index.php?option=com_licensing&view=orders&filter_claim={$claimID}", 'Посмотреть');
+        $url = JHtml::link("http://ais.bmstu.ru/administrator/index.php?option=com_licensing&view=orders&filter_claim={$claimID}", 'Посмотреть');
         $body = sprintf(self::getParams('notify_new_order_text'), $url);
         $mailer->isHtml(true);
         $mailer->setBody($body);
