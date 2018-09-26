@@ -16,6 +16,7 @@ class LicensingModelAuth extends BaseDatabaseModel
         $users = $ldap->searchUsers(false, $this->guid);
 
         $user = $this->parseUser($users);
+
         $fieldID = LicensingHelper::getGuidField('guid');
         unset($user['guid']);
         try
