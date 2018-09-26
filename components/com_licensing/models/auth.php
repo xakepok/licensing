@@ -13,7 +13,7 @@ class LicensingModelAuth extends BaseDatabaseModel
     public function getUser()
     {
         $ldap = BaseDatabaseModel::getInstance('Ldap', 'LicensingModel');
-        $users = $ldap->searchUsers('', '', $this->guid);
+        $users = $ldap->searchUsers(false, $this->guid);
 
         $user = $this->parseUser($users);
         $fieldID = LicensingHelper::getGuidField('guid');
