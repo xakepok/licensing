@@ -21,7 +21,7 @@ class LicensingModelClaim extends ItemModel
         $db =& $this->getDbo();
         $guid = $db->quote(LicensingHelper::getUserGuid());
         $query = $db->getQuery(true);
-        $query->select('`s`.`name` as `product`, `k`.`text` as `key`, `o`.`cnt`, `l`.`dateExpires`')
+        $query->select('`s`.`id`, `s`.`name` as `product`, `k`.`text` as `key`, `o`.`cnt`, `l`.`dateExpires`')
             ->from('#__licensing_orders as `o`')
             ->leftJoin('#__licensing_claims as `c` on `c`.`id` = `o`.`claimID`')
             ->leftJoin('#__licensing_software as `s` on `s`.`id` = `o`.`softwareID`')

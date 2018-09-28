@@ -12,7 +12,13 @@
     <tbody>
     <?php foreach ($this->item['software'] as $item) : ?>
         <tr>
-            <td><?php echo $item['product'];?></td>
+            <td>
+                <?php
+                $url = JRoute::_("index.php?option=com_licensing&view=product&id={$item['id']}");
+                $link = JHtml::link($url, $item['product'], array('target'=>'_blank'));
+                echo $link;
+                ?>
+            </td>
             <td><?php echo $item['key'];?></td>
             <td><?php echo $item['cnt'];?></td>
             <td><?php echo $item['dateExpires'];?></td>
