@@ -37,7 +37,7 @@ class LicensingModelLdap extends BaseDatabaseModel
         ldap_bind($ldap, LicensingHelper::getParams("ldap_ais_username"), LicensingHelper::getParams("ldap_ais_password"));
         if ($guid !== false)
         {
-            $filter = "x500UniqueIdentifier={$guid}";
+            $filter = sprintf(LicensingHelper::getParams("ldap_ais_filter_guid"), $guid);
         }
         if ($fio !== false)
         {
