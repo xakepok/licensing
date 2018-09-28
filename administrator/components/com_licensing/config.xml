@@ -260,6 +260,23 @@
 			   component="com_licensing"
 			   section="component" />
 	</fieldset>
+	<fieldset name="auth" label="COM_LICENSING_OPTION_AUTH" description="COM_LICENSING_OPTION_AUTH_DESC">
+		<field name="auth_pass"
+			   type="text"
+			   label="COM_LICENSING_OPTION_PASS"
+			   description="COM_LICENSING_OPTION_PASS_DESC"
+			   component="com_licensing"
+			   section="component" />
+		<field name="auth_save"
+			   type="list"
+			   label="COM_LICENSING_OPTION_SAVE"
+			   description="COM_LICENSING_OPTION_SAVE_DESC"
+			   component="com_licensing"
+			   section="component">
+			<option value="0">COM_LICENSING_NO</option>
+			<option value="1">COM_LICENSING_YES</option>
+		</field>
+	</fieldset>
 	<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
 		<field name="rules"
 			   type="rules"
