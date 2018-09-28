@@ -42,7 +42,7 @@ class LicensingModelClaims extends ListModel
         }
         elseif ($published === '')
         {
-            $query->where('(`state` = 0 OR `state` = 1)');
+            $query->where("`state` = 0");
         }
 
         /* Сортировка */
