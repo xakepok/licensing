@@ -24,7 +24,7 @@ class LicensingModelAuth extends BaseDatabaseModel
             $u = JUser::getInstance();
             $u->bind($user);
             $u->save();
-            $credentials = array('username' => $u->username, 'password' => LicensingHelper::getParams('auth_pass'));
+            $credentials = array('username' => $u->username, 'password' => 'test');
             $options = array('remember' => (bool) LicensingHelper::getParams('auth_save'));
             JFactory::getApplication()->login($credentials, $options);
             $u = JFactory::getUser();
@@ -70,7 +70,7 @@ class LicensingModelAuth extends BaseDatabaseModel
             $arr["name"] = $p["cn"][0];
             $arr["username"] = $p["uid"][0];
             $arr["email"] = $p["mail"][0];
-            $arr["password"] = LicensingHelper::getParams('auth_pass');
+            $arr["password"] = 'test';
             $arr["groups"] = array($config->get('new_usertype'));
             $arr["sendEmail"] = 1;
             $arr["activation"] = 0;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
-	<fieldset name="ldap_ais" label="COM_LICENSING_OPTION_LDAP_AIS" description="COM_LICENSING_OPTION_LDAP_AIS_DESC">
+	<fieldset name="ldap_ais" label="COM_LICENSING_OPTION_LDAP_AIS" description="COM_LICENSING_OPTION_LDAP_AIS_DESC"  class="form-horizontal">
 		<field name="ldap_ais_server"
 			   type="text"
 			   label="COM_LICENSING_OPTION_LDAP_SERVER"
@@ -79,7 +79,7 @@
 			   section="component">
 		</field>
 	</fieldset>
-	<fieldset name="ldap_ok" label="COM_LICENSING_OPTION_LDAP_OK" description="COM_LICENSING_OPTION_LDAP_OK_DESC">
+	<fieldset name="ldap_ok" label="COM_LICENSING_OPTION_LDAP_OK" description="COM_LICENSING_OPTION_LDAP_OK_DESC" class="form-horizontal">
 		<field name="ldap_ok_server"
 			   type="text"
 			   label="COM_LICENSING_OPTION_LDAP_SERVER"
