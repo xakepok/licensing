@@ -251,7 +251,7 @@
 			   section="component" />
 		<field name="spacer_format_api"
 			   type="spacer"
-			   label="COM_LICENSING_OPTION_FORMAT_SITE"
+			   label="COM_LICENSING_OPTION_FORMAT_API"
 			   class="inputbox" />
 		<field name="format_date_api"
 			   type="text"
