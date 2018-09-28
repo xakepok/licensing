@@ -61,6 +61,7 @@
                 type="editor"
                 label="COM_LICENSING_SOFTWARE_HEAD_ABOUT"
                 description="COM_LICENSING_SOFTWARE_HEAD_ABOUT_DESC"
+                filter="raw"
                 class="input-xlarge"
         />
         <field
