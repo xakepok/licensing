@@ -19,21 +19,6 @@ class LicensingModelClaim extends AdminModel {
         return $db->setQuery($query)->loadObjectList();
     }
 
-    /* Одобряем заявку */
-    public function accept()
-    {
-        $cid = implode(', ', JFactory::getApplication()->input->get('cid', array(), 'array'));
-        $db =& $this->getDbo();
-        $query = $db->getQuery(true);
-        $query->select('`c`.`id`, `s`.`name` as `software`, `k`.`text` as `key`, `o`.`cnt`')
-            ->from('#__licensing_orders as `o`')
-            ->leftJoin("#__licensing_software as `s` ON `s`.`id`=`o`.`softwareID`")
-            ->leftJoin("#__licensing_keys as `k` ON `k`.`softwareID`=`o`.`softwareID`")
-            ->leftJoin("#__licensing_claims as `c` ON `c`.`id`=`o`.`claimID`")
-            ->where("`o`.`claimID` IN ({$cid})");
-        return $db->setQuery($query)->loadObjectList();
-    }
-
     /* Прибавляем количество ПО при отклонении заявки */
     public function decline()
     {

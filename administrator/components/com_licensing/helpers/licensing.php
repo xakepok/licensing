@@ -97,7 +97,7 @@ class LicensingHelper
     }
 
 	/* Уведомление админов о новой заявке на лицензию */
-	public static function sendKeys($keys)
+	public static function sendKeys()
     {
         if (self::getParams('notify_users') == false) return false;
         $claims = self::getEmailUserNotify();
