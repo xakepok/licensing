@@ -15,12 +15,12 @@ class JFormFieldLicense extends JFormFieldList  {
                 ->select("`id`, `name`, `number`")
                 ->from('#__licensing_licenses')
                 ->order("`name`")
-                ->where('`state` > 0');
+                ->where('`state` = 1');
             $view = JFactory::getApplication()->input->getString('view');
             $id = JFactory::getApplication()->input->getInt('id', 0);
 
             /*Фильтр по активности*/
-            if (in_array($view, $this->needFilter) && $id = 0)
+            if (in_array($view, $this->needFilter) && $id == 0)
             {
                 $query
                     ->where('`dateStart` <= CURRENT_DATE()')

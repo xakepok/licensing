@@ -5,16 +5,30 @@ JFormHelper::loadFieldClass('list');
 
 class JFormFieldSoftware extends JFormFieldList  {
     protected  $type = 'Software';
+    protected $needFilter = array('key'); //Список вьюшек, нуждающихся в фильтрации по активности
 
     protected function getOptions()
     {
             $db = JFactory::getDbo();
             $query = $db->getQuery(true);
             $query
-                ->select("`id`, `name`")
-                ->from('#__licensing_software')
-                ->order("`name`")
-                ->where('`state` > 0');
+                ->select("`s`.`id`, `s`.`name`")
+                ->from('#__licensing_software as `s`')
+                ->leftJoin('#__licensing_licenses as `l` ON `l`.`id` = `s`.`licenseID`')
+                ->order("`s`.`name`")
+                ->where('`s`.`state` = 1');
+
+            $view = JFactory::getApplication()->input->getString('view');
+            $id = JFactory::getApplication()->input->getInt('id', 0);
+
+            /*Фильтр по активности*/
+            if (in_array($view, $this->needFilter) && $id == 0)
+            {
+                $query
+                    ->where('`l`.`dateStart` <= CURRENT_DATE()')
+                    ->where('`l`.`dateExpires` > CURRENT_DATE()');
+            }
+
             $result = $db->setQuery($query)->loadObjectList();
 
             $options = array();
