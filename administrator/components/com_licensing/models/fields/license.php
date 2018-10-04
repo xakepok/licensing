@@ -23,8 +23,7 @@ class JFormFieldLicense extends JFormFieldList  {
             if (in_array($view, $this->needFilter) && $id == 0)
             {
                 $query
-                    ->where('`dateStart` <= CURRENT_DATE()')
-                    ->where('`dateExpires` > CURRENT_DATE()');
+                    ->where('(`dateExpires` > CURRENT_DATE() OR `unlim` = 1)');
             }
 
             $result = $db->setQuery($query)->loadObjectList();
@@ -33,7 +32,7 @@ class JFormFieldLicense extends JFormFieldList  {
 
             foreach ($result as $item)
             {
-                $name = sprintf("%s (%s)", $item->name, $item->number);
+                $name = ($item->number != null) ? sprintf("%s (%s)", $item->name, $item->number) : sprintf("%s", $item->name);
                 $options[] = JHtml::_('select.option', $item->id, $name);
             }
 

@@ -16,7 +16,8 @@ class JFormFieldSoftware extends JFormFieldList  {
                 ->from('#__licensing_software as `s`')
                 ->leftJoin('#__licensing_licenses as `l` ON `l`.`id` = `s`.`licenseID`')
                 ->order("`s`.`name`")
-                ->where('`s`.`state` = 1');
+                ->where('`s`.`state` = 1 AND `l`.`state` = 1')
+                ->where('`l`.`available` = 1');
 
             $view = JFactory::getApplication()->input->getString('view');
             $id = JFactory::getApplication()->input->getInt('id', 0);
@@ -25,8 +26,7 @@ class JFormFieldSoftware extends JFormFieldList  {
             if (in_array($view, $this->needFilter) && $id == 0)
             {
                 $query
-                    ->where('`l`.`dateStart` <= CURRENT_DATE()')
-                    ->where('`l`.`dateExpires` > CURRENT_DATE()');
+                    ->where('(`l`.`dateExpires` > CURRENT_DATE()) OR (`l`.`unlim` = 1)');
             }
 
             $result = $db->setQuery($query)->loadObjectList();
