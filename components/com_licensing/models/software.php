@@ -55,7 +55,9 @@ class LicensingModelSoftware extends ListModel
         foreach ($items as $item) {
             $arr = array();
             $arr['id'] = $item->id;
-            $arr['software'] = $item->software;
+            $Itemid = LicensingHelper::getItemid('product');
+            $url = JRoute::_("index.php?id={$item->id}&Itemid={$Itemid}");
+            $arr['software'] = JHtml::link($url, $item->software);
             $arr['license'] = $item->license;
             $arr['dateStart'] = $item->dateStart;
             if (JFactory::getApplication()->input->getString('format', 'html') == 'html')

@@ -1,7 +1,7 @@
 <?php
 defined( '_JEXEC' ) or die( 'Restricted access' );
-use Joomla\CMS\Component\Router\RouterView;
-class LicensingRouter extends RouterView
+use Joomla\CMS\Component\Router\RouterBase;
+class LicensingRouter extends RouterBase
 {
     public function build(&$query)
     {
@@ -9,22 +9,23 @@ class LicensingRouter extends RouterView
         if (isset($query['view']))
         {
             $segments[] = $query['view'];
-            unset($query['view']);
         }
-        /*(if (isset($query['id']))
+        if (isset($query['id']))
         {
             $segments[] = $query['id'];
             unset($query['id']);
-        };*/
+        };
+        unset($query['view']);
 
         return $segments;
     }
 
-    /*public function parse(&$segments)
+    public function parse(&$segments)
     {
         $vars = array();
+        $menu = JMenu::getInstance('site')->getActive();
 
-        switch ($segments[0])
+        switch ($menu->query["view"])
         {
             case 'licenses':
                 {
@@ -44,10 +45,16 @@ class LicensingRouter extends RouterView
             case 'claim':
                 {
                     $vars['view'] = 'claim';
-                    $vars['id'] = $segments[1];
+                    $vars['id'] = $segments[0];
+                    break;
+                }
+            case 'product':
+                {
+                    $vars['view'] = 'product';
+                    $vars['id'] = $segments[0];
                     break;
                 }
         }
         return $vars;
-    }*/
+    }
 }

@@ -4,7 +4,9 @@ defined('_JEXEC') or die;
 foreach ($this->items as $i => $claim) : ?>
     <tr class="row0">
         <td>
-            <?php $link = JRoute::_('index.php?option=com_licensing&view=claim&id='.$claim['id']);
+            <?php
+            $Itemid = LicensingHelper::getItemid('claim');
+            $link = JRoute::_("index.php?id={$claim['id']}&Itemid={$Itemid}");
             echo JHtml::link($link, $claim['dat']);
             ?>
         </td>

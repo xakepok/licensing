@@ -18,6 +18,17 @@ class LicensingHelper
 		JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_KEYTYPES'), 'index.php?option=com_licensing&view=keytypes', $vName == 'keytypes');
 	}
 
+	/*Получаем ID пункта меню*/
+    public static function getItemid($view)
+    {
+        $items = JFactory::getApplication()->getMenu( 'site' )->getItems( 'component', 'com_licensing' );
+        foreach ( $items as $item ) {
+            if($item->query['view'] === $view){
+                return $item->id;
+            }
+        }
+    }
+
 	/* Проверяем, студент или нет */
     public static function isStudent($guid)
     {

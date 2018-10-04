@@ -14,7 +14,8 @@
         <tr>
             <td>
                 <?php
-                $url = JRoute::_("index.php?option=com_licensing&view=product&id={$item['id']}");
+                $Itemid = LicensingHelper::getItemid('product');
+                $url = JRoute::_("index.php?id={$item['id']}&Itemid={$Itemid}");
                 $link = JHtml::link($url, $item['product'], array('target'=>'_blank'));
                 echo $link;
                 ?>
