@@ -112,14 +112,13 @@ class LicensingHelper
             $email = $claim->email;
             $fio = $claim->empl_fio;
             $body = "";
-            foreach ($keys as $key)
-            {
-                if ($key->id == $claim->id)
-                {
-                    $body .= sprintf(self::getParams('notify_user_text'), $key->software, $key->key, $key->cnt);
-                    $body .= "<br>";
-                }
-            }
+            $Itemid = self::getItemid('claim');
+            $app    = JApplication::getInstance('site');
+            $router =& $app->getRouter();
+            $url = $router->build("index.php?id={$claim->id}&Itemid={$Itemid}")->toString();
+            $eventLink = "http://ais.bmstu.ru".str_replace('/administrator', '', $url);
+            $link = JHtml::link($eventLink, $eventLink);
+            $body .= sprintf(self::getParams('notify_user_text'), $claim->id, $link);
             $mailer->addRecipient($email, $fio);
             $mailer->isHtml(true);
             $mailer->setBody($body);
