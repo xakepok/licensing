@@ -17,14 +17,14 @@ class JFormFieldLicense extends JFormFieldList  {
                 ->order("`name`")
                 ->where('`state` > 0');
             $view = JFactory::getApplication()->input->getString('view');
+            $id = JFactory::getApplication()->input->getInt('id', 0);
 
             /*Фильтр по активности*/
-            if (in_array($view, $this->needFilter))
+            if (in_array($view, $this->needFilter) && $id = 0)
             {
                 $query
                     ->where('`dateStart` <= CURRENT_DATE()')
-                    ->where('`dateExpires` > CURRENT_DATE()')
-                    ->where('`state` = 1');
+                    ->where('`dateExpires` > CURRENT_DATE()');
             }
 
             $result = $db->setQuery($query)->loadObjectList();
