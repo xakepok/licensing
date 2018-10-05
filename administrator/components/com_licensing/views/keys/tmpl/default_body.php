@@ -23,7 +23,7 @@ foreach ($this->items as $i => $keys) :
             <?php echo $keys->countAvalible; ?>
         </td>
         <td class="center">
-            <?php echo $keys->countReserv; ?>
+            <?php echo ($this->reserv[$keys->id] != null) ? $this->reserv[$keys->id] : 0 ; ?>
         </td>
         <td>
             <?php echo $keys->license; ?>

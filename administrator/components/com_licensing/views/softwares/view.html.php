@@ -9,13 +9,14 @@ class LicensingViewSoftwares extends HtmlView
 {
 	protected $helper;
 	protected $sidebar = '';
-	public $items, $state, $pagination;
+	public $items, $state, $pagination, $reserv;
 
 	public function display($tpl = null)
 	{
 	    $this->items = $this->get('Items');
 	    $this->state = $this->get('State');
 	    $this->pagination = $this->get('Pagination');
+	    $this->reserv = LicensingHelper::getSoftwareReserv();
 
 		// Show the toolbar
 		$this->toolbar();

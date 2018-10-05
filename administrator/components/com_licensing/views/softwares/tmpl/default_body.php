@@ -1,6 +1,5 @@
 <?php
 defined('_JEXEC') or die;
-
 foreach ($this->items as $i => $software) :
     $canChange = JFactory::getUser()->authorise('core.edit.state', 'com_licensing.software.' . $item->id);
     ?>
@@ -23,7 +22,7 @@ foreach ($this->items as $i => $software) :
             <?php echo $software->countAvalible; ?>
         </td>
         <td class="center">
-            <?php echo $software->countReserv; ?>
+            <?php echo ($this->reserv[$software->id] != null) ? $this->reserv[$software->id] : 0 ; ?>
         </td>
         <td>
             <?php echo $software->license; ?>
