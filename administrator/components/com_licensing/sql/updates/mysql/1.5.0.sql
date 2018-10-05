@@ -1,0 +1,1 @@
+ALTER TABLE `#__licensing_software` DROP `countReserv`;
