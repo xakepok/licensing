@@ -26,7 +26,7 @@ class LicensingModelSoftwares extends ListModel
         $db =& $this->getDbo();
         $query = $db->getQuery(true);
         $query
-            ->select("`s`.`id`, `s`.`name`, IF(`s`.`unlim`=1,'∞',`s`.`count`) as `count`, IF(`s`.`unlim`=1,'∞',`s`.`countAvalible`) as `countAvalible`, IF(`s`.`unlim`=1,'∞',`s`.`countReserv`) as `countReserv`, `l`.`name` as `license`, `l`.`number`, CONCAT(DATE_FORMAT(`l`.`dateStart`,'%d.%m.%Y'),' - ',DATE_FORMAT(`l`.`dateExpires`,'%d.%m.%Y')) as `dat`, `t`.`type` as `licenseType`, `c`.`name` as `company`, `s`.`state`")
+            ->select("`s`.`id`, `s`.`name`, IF(`s`.`unlim`=1,'∞',`s`.`count`) as `count`, IF(`s`.`unlim`=1,'∞',`s`.`countAvalible`) as `countAvalible`, `l`.`name` as `license`, `l`.`number`, CONCAT(DATE_FORMAT(`l`.`dateStart`,'%d.%m.%Y'),' - ',DATE_FORMAT(`l`.`dateExpires`,'%d.%m.%Y')) as `dat`, `t`.`type` as `licenseType`, `c`.`name` as `company`, `s`.`state`")
             ->from("`#__licensing_software` as `s`")
             ->leftJoin('`#__licensing_licenses` as `l` ON `l`.`id` = `s`.`licenseID`')
             ->leftJoin('`#__licensing_type_licenses` as `t` ON `t`.`id` = `l`.`licenseType`')

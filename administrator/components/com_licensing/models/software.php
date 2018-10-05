@@ -60,7 +60,7 @@ class LicensingModelSoftware extends AdminModel {
 
     protected function prepareTable($table)
     {
-    	$nulls = array('about', 'count', 'countAvalible', 'countReserv'); //Поля, которые NULL
+    	$nulls = array('about', 'count', 'countAvalible'); //Поля, которые NULL
 	    foreach ($nulls as $field)
 	    {
 		    if (!strlen($table->$field)) $table->$field = NULL;

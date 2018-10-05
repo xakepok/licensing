@@ -49,14 +49,6 @@
                 class="input-xlarge"
         />
         <field
-                name="countReserv"
-                type="text"
-                label="COM_LICENSING_SOFTWARE_HEAD_COUNT_RESERV"
-                description="COM_LICENSING_SOFTWARE_HEAD_COUNT_RESERV_DESC"
-                autocomplete="off"
-                class="input-xlarge"
-        />
-        <field
                 name="about"
                 type="editor"
                 label="COM_LICENSING_SOFTWARE_HEAD_ABOUT"

@@ -9,7 +9,6 @@ class TableLicensingSoftware extends Table
     var $name = null;
     var $count = null;
     var $countAvalible = null;
-    var $countReserv = null;
     var $unlim = null;
     var $about = null;
     var $state = null;
