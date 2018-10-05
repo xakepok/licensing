@@ -82,7 +82,8 @@ class LicensingModelClaim extends AdminModel {
 	    {
 		    if (!strlen($table->$field)) $table->$field = NULL;
     	}
-    	$table->user_id = JFactory::getUser()->id;
+        $table->user_id = JFactory::getUser()->id;
+        $table->status_user = JFactory::getUser()->id;
         parent::prepareTable($table);
     }
 
