@@ -57,11 +57,11 @@ class LicensingModelSoftware extends ListModel
             $arr['id'] = $item->id;
             $Itemid = LicensingHelper::getItemid('product');
             $url = JRoute::_("index.php?id={$item->id}&Itemid={$Itemid}");
-            $arr['software'] = JHtml::link($url, $item->software);
             $arr['license'] = $item->license;
             $arr['dateStart'] = $item->dateStart;
             if (JFactory::getApplication()->input->getString('format', 'html') == 'html')
             {
+                $arr['software'] = JHtml::link($url, $item->software);
                 $dogovor = (!empty($item->dogovor)) ? $item->dogovor : JText::_('COM_LICENSING_LICENSES_LIC_NO_INFO');
                 $arr['number'] = (!empty($item->number)) ? $item->number : JText::_('COM_LICENSING_LICENSES_LIC_NUMBER_NO');
                 $arr['dateExpires'] = ($item->unlimLic != 1) ? $item->dateExpires : JText::_('COM_LICENSING_LICENSES_LIC_UNEXPECT');
@@ -69,6 +69,7 @@ class LicensingModelSoftware extends ListModel
             }
             else
             {
+                $arr['software'] = $item->software;
                 $dogovor = (!empty($item->dogovor)) ? $item->dogovor : JText::_('COM_LICENSING_LICENSES_LIC_NO_INFO');
                 $arr['number'] = $item->number;
                 if ($item->unlimLic != 1)
