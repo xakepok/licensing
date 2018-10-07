@@ -35,9 +35,9 @@ class LicensingModelProduct extends ItemModel
         $arr['dates'] = sprintf("%s: %s - %s", JText::_('COM_LICENSING_SOFTWARE_DATES'), $dateStart, $dateExpires);
         $arr['description'] = $result->about;
         $arr['product'] = $result->product;
-        $arr['license'] = (!empty($result->license)) ? $result->license : JText::_('COM_LICENSING_LICENSES_LIC_NUMBER_NO');
-        $arr['number'] = (!empty($result->number)) ? $result->number : JText::_('COM_LICENSING_LICENSES_LIC_NUMBER_NO');
-        $arr['dogovor'] = (!empty($result->dogovor)) ? $result->dogovor : JText::_('COM_LICENSING_LICENSES_LIC_NO_INFO');
+        $arr['license'] = $result->license ?? JText::_('COM_LICENSING_LICENSES_LIC_NUMBER_NO');
+        $arr['number'] = $result->number ?? JText::_('COM_LICENSING_LICENSES_LIC_NUMBER_NO');
+        $arr['dogovor'] = $result->dogovor ?? JText::_('COM_LICENSING_LICENSES_LIC_NO_INFO');
         $arr['buy'] = ($result->unlim != 1) ? $result->buy : JText::_('COM_LICENSING_LICENSES_LIC_SOFT_UNLIM');
         $arr['cnt'] = ($result->unlim != 1) ? $result->cnt : JText::_('COM_LICENSING_LICENSES_LIC_SOFT_UNLIM');
         return $arr;
