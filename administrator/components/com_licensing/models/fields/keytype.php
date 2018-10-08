@@ -13,7 +13,7 @@ class JFormFieldKeytype extends JFormFieldList  {
             $query
                 ->select("`id`, `type`")
                 ->from('#__licensing_type_keys')
-                ->order("`type`")
+                ->order("`id`")
                 ->where('`state` > 0');
             $result = $db->setQuery($query)->loadObjectList();
 
