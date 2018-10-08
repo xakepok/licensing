@@ -62,8 +62,8 @@ class LicensingModelSoftware extends ListModel
             if (JFactory::getApplication()->input->getString('format', 'html') == 'html')
             {
                 $arr['software'] = JHtml::link($url, $item->software);
-                $dogovor = (!empty($item->dogovor)) ? $item->dogovor : JText::_('COM_LICENSING_LICENSES_LIC_NO_INFO');
-                $arr['number'] = (!empty($item->number)) ? $item->number : JText::_('COM_LICENSING_LICENSES_LIC_NUMBER_NO');
+                $dogovor = $item->dogovor ?? JText::_('COM_LICENSING_LICENSES_LIC_NO_INFO');
+                $arr['number'] = $item->number ?? JText::_('COM_LICENSING_LICENSES_LIC_NUMBER_NO');
                 $arr['dateExpires'] = ($item->unlimLic != 1) ? $item->dateExpires : JText::_('COM_LICENSING_LICENSES_LIC_UNEXPECT');
                 $arr['cnt'] = ($item->unlimSoft != 1) ? $item->cnt : JText::_('COM_LICENSING_LICENSES_LIC_SOFT_UNLIM');
             }
