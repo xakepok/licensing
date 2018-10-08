@@ -11,6 +11,20 @@ class LicensingHelperUsers
         return ($xml === false) ? false : true;
     }
 
+    /* Получаем пользователя по API-ключу */
+    public static function getApiKey(string $apikey): int
+    {
+        $db =& JFactory::getDbo();
+        $apikey = $db->quote($apikey);
+        $query = $db->getQuery(true);
+        $fieldID = $db->quote(self::getAdvancedField('apikey'));
+        $query->select('`item_id`')
+            ->from('#__fields_values')
+            ->where("`field_id` = {$fieldID} AND `value` LIKE {$apikey}");
+        $result = (int) $db->setQuery($query, 0, 1)->loadResult();
+        return $result;
+    }
+
     /* Получаем GUID текущего юзера из базы */
     public static function getUserGuid(): string
     {

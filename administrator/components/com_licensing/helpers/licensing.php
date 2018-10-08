@@ -19,6 +19,22 @@ class LicensingHelper
 		JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_KEYTYPES'), 'index.php?option=com_licensing&view=keytypes', $vName == 'keytypes');
 	}
 
+	/*Добавляем запись в историю API-запросов*/
+	public static function addApiHistory(int $uid): void
+    {
+        $db =& JFactory::getDbo();
+        $query = $db->getQuery(true);
+        $uri = JUri::getInstance();
+        $uid = $db->quote($uid);
+        $getQuery = $db->quote($uri->toString());
+        $values = array($uid, $getQuery);
+        $query
+            ->insert("`#__licensing_api_history`")
+            ->columns(array($db->quoteName("uid"), $db->quoteName("query")))
+            ->values(implode(', ', $values));
+        $db->setQuery($query)->execute();
+    }
+
 	/*Получаем ID пункта меню*/
     public static function getItemid(string $view): int
     {
