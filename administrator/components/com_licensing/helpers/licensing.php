@@ -60,14 +60,12 @@ class LicensingHelper
     {
         if (self::getParams('notify_users') == false) return;
         $claims = self::getEmailsNotify('users');
+        $config =& JFactory::getConfig();
         foreach ($claims as $claim)
         {
             $mailer =& JFactory::getMailer();
-            $config =& JFactory::getConfig();
             $sender = array($config->get('config.mailfrom'), $config->get('config.fromname'));
-            $mailer->setSender($sender);
-            $mailer->setSubject(self::getParams('notify_user_theme'));
-            $mailer->addReplyTo(self::getParams('notify_user_replyto'));
+            $mailer->setSender($sender)->setSubject(self::getParams('notify_user_theme'))->addReplyTo(self::getParams('notify_user_replyto'));
             $email = $claim->email;
             $fio = $claim->empl_fio;
             $body = "";
