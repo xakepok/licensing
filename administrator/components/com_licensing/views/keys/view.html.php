@@ -16,7 +16,7 @@ class LicensingViewKeys extends HtmlView
 	    $this->items = $this->get('Items');
 	    $this->state = $this->get('State');
 	    $this->pagination = $this->get('Pagination');
-        $this->reserv = LicensingHelper::getSoftwareReserv();
+        $this->reserv = LicensingHelperKeys::getSoftwareReserv();
 
 		// Show the toolbar
 		$this->toolbar();

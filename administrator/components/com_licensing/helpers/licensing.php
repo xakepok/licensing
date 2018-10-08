@@ -1,11 +1,12 @@
 <?php
 use Joomla\CMS\Language\Text;
+jimport('joomla.log.logger.formattedtext');
 
 defined('_JEXEC') or die;
 
 class LicensingHelper
 {
-	public function addSubmenu($vName)
+	public function addSubmenu(string $vName): void
 	{
 		JHtmlSidebar::addEntry(Text::_('COM_LICENSING'), 'index.php?option=com_licensing&view=licensing', $vName == 'licensing');
 		JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_CLAIMS'), 'index.php?option=com_licensing&view=claims', $vName == 'claims');
@@ -18,84 +19,24 @@ class LicensingHelper
 		JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_KEYTYPES'), 'index.php?option=com_licensing&view=keytypes', $vName == 'keytypes');
 	}
 
-	/*Получаем список резерва*/
-    public static function getSoftwareReserv()
-    {
-        $arr = array();
-        $db =& JFactory::getDbo();
-        $query = $db->getQuery(true);
-        $query
-            ->select("`o`.`id`, `o`.`softwareID`, `o`.`cnt`")
-            ->from("#__licensing_orders as `o`")
-            ->leftJoin("`#__licensing_claims` as `c` ON `c`.`id` = `o`.`claimID`")
-            ->where("`c`.`state` = 0");
-        $result = $db->setQuery($query)->loadAssocList();
-        foreach ($result as $item) {
-            if (!isset($arr[$item['softwareID']])) $arr[$item['softwareID']] = 0;
-            $arr[$item['softwareID']] += $item['cnt'];
-        }
-        return $arr;
-    }
-
 	/*Получаем ID пункта меню*/
-    public static function getItemid($view)
+    public static function getItemid(string $view): int
     {
-        $items = JFactory::getApplication()->getMenu( 'site' )->getItems( 'component', 'com_licensing' );
-        foreach ( $items as $item ) {
+        $id = 0;
+        $items = JFactory::getApplication()->getMenu( 'site' )->getItems( 'component', 'com_licensing');
+        foreach ($items as $item) {
             if($item->query['view'] === $view){
-                return $item->id;
+                $id = (int) $item->id;
             }
         }
-    }
-
-	/* Проверяем, студент или нет */
-    public static function isStudent($guid)
-    {
-        $xml = @file_get_contents("http://ud-dream.eu.bmstu.ru/api/v2/php_get_student?api_key=ed5b34dbbf2ae840af4e23084502794d16a258eb28ef52bda0b0cac03f49a53c&guid={$guid}");
-        return ($xml === false) ? false : true;
-    }
-
-	/* Получаем GUID юзера из базы */
-    public static function getUserGuid()
-    {
-        $db = JFactory::getDbo();
-        $query = $db->getQuery(true);
-        $fieldID = $db->quote(self::getGuidField('guid'));
-        $userID = $db->quote(JFactory::getUser()->id);
-        $query->select('`value`')
-            ->from('#__fields_values')
-            ->where("`field_id` = {$fieldID} AND `item_id` = {$userID}");
-        return $db->setQuery($query, 0, 1)->loadResult();
-    }
-
-    /* Получаем ID дополнительного поля для хранения GUIDа */
-    public static function getGuidField($name)
-    {
-        $db =& JFactory::getDbo();
-        $query = $db->getQuery(true);
-        $query->select("`id`")
-            ->from("`#__fields`")
-            ->where("`name` LIKE '{$name}' AND `context` LIKE 'com_users.user'");
-        return $db->setQuery($query, 0, 1)->loadResult();
-    }
-
-    /* Возвращаем читабельный статус заявки на ПО во фронтенде */
-	public static function getStatus($id)
-    {
-        $statuses = array(
-            0 => 'COM_LICENSING_CLAIMS_STATUS_IN_WORK',
-            1 => 'COM_LICENSING_CLAIMS_STATUS_ACCEPT',
-            -2 => 'COM_LICENSING_CLAIMS_STATUS_DECLINE',
-            2 => 'COM_LICENSING_CLAIMS_STATUS_ARCHIVED'
-        );
-        return JText::_($statuses[$id]);
+        return $id;
     }
 
 	/* Уведомляем юзера об отклонении заявки */
-	public static function sendDecline()
+	public static function sendDecline(): void
     {
-        if (self::getParams('notify_users_decline') == false) return false;
-        $claims = self::getEmailUserNotify();
+        if (self::getParams('notify_users_decline') == false) return;
+        $claims = self::getEmailsNotify('users');
         foreach ($claims as $claim)
         {
             $mailer =& JFactory::getMailer();
@@ -112,14 +53,13 @@ class LicensingHelper
             $mailer->setBody($body);
             $mailer->Send();
         }
-        return true;
     }
 
-	/* Уведомление админов о новой заявке на лицензию */
-	public static function sendKeys()
+	/* Отправка ссылок на ПО юзеру при одобрении заявки */
+	public static function sendKeys(): void
     {
-        if (self::getParams('notify_users') == false) return false;
-        $claims = self::getEmailUserNotify();
+        if (self::getParams('notify_users') == false) return;
+        $claims = self::getEmailsNotify('users');
         foreach ($claims as $claim)
         {
             $mailer =& JFactory::getMailer();
@@ -143,66 +83,82 @@ class LicensingHelper
             $mailer->setBody($body);
             $mailer->Send();
         }
-        return true;
     }
 
 	/* Уведомление админов о новой заявке на лицензию */
-	public static function notifyAdmin($claimID)
+	public static function notifyAdmin(int $claimID): void
     {
-        if (self::getParams('notify_new_order') == false) return false;
+        if (self::getParams('notify_new_order') == false) return;
+        $logger = new JLogLoggerFormattedtext(self::getLogOptions());
         $mailer =& JFactory::getMailer();
         $config =& JFactory::getConfig();
         $sender = array($config->get('config.mailfrom'), $config->get('config.fromname'));
         $mailer->setSender($sender);
         $mailer->setSubject(self::getParams('notify_new_order_theme'));
-        $users = self::getEmailsNotify();
+        $users = self::getEmailsNotify('admins');
+
         foreach ($users as $user)
         {
-            if (self::checkUserNotify($user->id)) $mailer->addRecipient($user->email, $user->name);
+            if (self::checkAdminNotify($user->id)) $mailer->addRecipient($user->email, $user->name);
+            $log = new JLogEntry($user->email, JLog::INFO, 'com_licensing');
+            $logger->addEntry($log);
         }
         $url = JHtml::link("http://ais.bmstu.ru/administrator/index.php?option=com_licensing&view=orders&filter_claim={$claimID}", 'Посмотреть');
         $body = sprintf(self::getParams('notify_new_order_text'), $url);
         $mailer->isHtml(true);
         $mailer->setBody($body);
-        $mailer->Send();
-        return true;
+
+        if (count($mailer->getAllRecipientAddresses()) > 0)
+        {
+            try {
+                $mailer->Send();
+            }
+            catch (Exception $exception)
+            {
+                $log = new JLogEntry($exception->getMessage(), JLog::ALERT, 'com_licensing');
+                $logger->addEntry($log);
+            }
+        }
+        else
+        {
+            $log = new JLogEntry("Empty list of Emails. ClaimID: {$claimID}", JLog::WARNING, 'com_licensing');
+            $logger->addEntry($log);
+        }
     }
 
     /* Проверка прав на получение email */
-    static function checkUserNotify($id)
+    static function checkAdminNotify(int $id): bool
     {
         $user = JFactory::getUser($id);
         return $user->authorise('core.notify.neworder', 'com_licensing');
     }
 
     /*
-     * Список email админов для уведомления о новой заявке
-     */
-    static function getEmailsNotify()
+     * Список email админов или пользователей для уведомления о новой заявке
+     * $type = 'admins' для получения email администраторов при уведомлении о новой заявке
+     * $type = 'users' для получения email пользователей при одобрении заявки
+     * */
+    static function getEmailsNotify(string $type): array
     {
         $db =& JFactory::getDbo();
         $query = $db->getQuery(true);
-        $mingroup = self::getParams('notify_new_order_group');
-        $query
-            ->select('`u`.`email`')
-            ->from('`#__user_usergroup_map` as `l`')
-            ->leftJoin('`#__users` as `u` ON `u`.`id` = `l`.`user_id`')
-            ->where($db->quoteName('group_id')." >= {$mingroup}");
-        return $db->setQuery($query)->loadObjectList();
-    }
-
-    /*
-     * Данные пользователя для отправки ключей
-     */
-    static function getEmailUserNotify()
-    {
-        $cid = implode(', ', JFactory::getApplication()->input->get('cid', array(), 'array'));
-        $db =& JFactory::getDbo();
-        $query = $db->getQuery(true);
-        $query
-            ->select('`id`, `email`, `empl_fio`')
-            ->from('`#__licensing_claims`')
-            ->where("`id` IN ({$cid})");
+        if ($type == 'admins')
+        {
+            $mingroup = self::getParams('notify_new_order_group');
+            $query
+                ->select('`u`.`email`, `u`.`id`')
+                ->from('`#__user_usergroup_map` as `l`')
+                ->leftJoin('`#__users` as `u` ON `u`.`id` = `l`.`user_id`')
+                ->where("`l`.`group_id` >= {$mingroup}");
+        }
+        if ($type == 'users')
+        {
+            $cid = implode(', ', JFactory::getApplication()->input->get('cid', array(), 'array'));
+            $query
+                ->select('`id`, `email`, `empl_fio`')
+                ->from('`#__licensing_claims`')
+                ->where("`id` IN ({$cid})");
+        }
         return $db->setQuery($query)->loadObjectList();
     }
 
@@ -210,5 +166,17 @@ class LicensingHelper
     {
         $options = JComponentHelper::getComponent('com_licensing')->getParams();
         return $options->get($name, $default);
+    }
+
+    public static function dump($var): void
+    {
+        echo "<pre>";
+        var_dump($var);
+        echo "</pre>";
+    }
+
+    static function getLogOptions(): array
+    {
+        return array('text_file' => 'error.php', 'text_file_path' => null, 'text_file_no_php' => false, 'text_entry_format' => '');
     }
 }

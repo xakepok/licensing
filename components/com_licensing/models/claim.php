@@ -19,7 +19,7 @@ class LicensingModelClaim extends ItemModel
     public function getSoftware()
     {
         $db =& $this->getDbo();
-        $guid = $db->quote(LicensingHelper::getUserGuid());
+        $guid = $db->quote(LicensingHelperUsers::getUserGuid());
         $query = $db->getQuery(true);
         $query->select('`s`.`id`, `s`.`name` as `product`, `k`.`text` as `key`, `o`.`cnt`, `l`.`dateExpires`')
             ->from('#__licensing_orders as `o`')
@@ -44,7 +44,7 @@ class LicensingModelClaim extends ItemModel
             $table = $this->getTable();
 
             $table->load($this->id);
-            if ($table->empl_guid != LicensingHelper::getUserGuid()) return;
+            if ($table->empl_guid != LicensingHelperUsers::getUserGuid()) return;
 
             $this->_item['id'] = $table->id;
             $this->_item['empl_fio'] = $table->empl_fio;
@@ -55,7 +55,7 @@ class LicensingModelClaim extends ItemModel
             $this->_item['structure'] = $table->structure;
             $this->_item['status'] = array();
             $this->_item['status']['code'] = $table->state;
-            $this->_item['status']['text'] = LicensingHelper::getStatus($table->state);
+            $this->_item['status']['text'] = LicensingHelperClaims::getStatus($table->state);
             if ($table->state > 0) $this->_item['software'] = $this->getSoftware();
         }
         return $this->_item;

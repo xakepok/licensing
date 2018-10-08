@@ -19,8 +19,8 @@ class LicensingModelClaims extends ListModel
 
     public function getStatus()
     {
-        $guid = LicensingHelper::getUserGuid();
-        return LicensingHelper::isStudent($guid);
+        $guid = LicensingHelperUsers::getUserGuid();
+        return LicensingHelperUsers::isStudent($guid);
     }
 
     protected function _getListQuery()
@@ -28,7 +28,7 @@ class LicensingModelClaims extends ListModel
         $db =& $this->getDbo();
         $query = $db->getQuery(true);
         $format = LicensingHelper::getParams('format_date_site');
-        $guid = $db->quote(trim(LicensingHelper::getUserGuid()));
+        $guid = $db->quote(trim(LicensingHelperUsers::getUserGuid()));
         $query
             ->select("`c`.`id`, DATE_FORMAT(`dat`,'{$format}') as `dat`, `u`.`name` as `manager`, `c`.`state`")
             ->from("`#__licensing_claims` as `c`")
@@ -60,7 +60,7 @@ class LicensingModelClaims extends ListModel
             $arr['id'] = $item->id;
             $arr['dat'] = $item->dat;
             $arr['manager'] = $item->manager;
-            $arr['status'] = LicensingHelper::getStatus($item->state);
+            $arr['status'] = LicensingHelperClaims::getStatus($item->state);
             $result[] = $arr;
         }
         return $result;
