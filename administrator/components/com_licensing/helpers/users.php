@@ -16,7 +16,7 @@ class LicensingHelperUsers
     {
         $db =& JFactory::getDbo();
         $query = $db->getQuery(true);
-        $fieldID = $db->quote(self::getGuidField('guid'));
+        $fieldID = $db->quote(self::getAdvancedField('guid'));
         $userID = $db->quote(JFactory::getUser()->id);
         $query->select('`value`')
             ->from('#__fields_values')
@@ -25,7 +25,7 @@ class LicensingHelperUsers
     }
 
     /* Получаем ID дополнительного поля для хранения GUIDа */
-    public static function getGuidField(string $name): int
+    public static function getAdvancedField(string $name): int
     {
         $db =& JFactory::getDbo();
         $query = $db->getQuery(true);
