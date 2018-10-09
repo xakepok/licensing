@@ -9,13 +9,14 @@ class LicensingViewOrders extends HtmlView
 {
 	protected $helper;
 	protected $sidebar = '';
-	public $items, $pagination, $uid, $state;
+	public $items, $pagination, $uid, $state, $links;
 
 	public function display($tpl = null)
 	{
 	    $this->items = $this->get('Items');
 	    $this->pagination = $this->get('Pagination');
 	    $this->state = $this->get('State');
+	    $this->links = $this->get('Links');
 
 		// Show the toolbar
 		$this->toolbar();

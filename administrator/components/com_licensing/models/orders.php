@@ -19,6 +19,20 @@ class LicensingModelOrders extends ListModel
         parent::__construct($config);
     }
 
+    /* Ссылки на одобрение или отклонение заявки */
+    public function getLinks():array
+    {
+        $id = JFactory::getApplication()->input->getInt('filter_claim', 0);
+        $links = array();
+        if ($id != 0) {
+            $accept = JRoute::_("index.php?option=com_licensing&task=claims.publish&cid[]={$id}");
+            $decline = JRoute::_("index.php?option=com_licensing&task=claims.trash&cid[]={$id}");
+            $links['accept'] = JHtml::link($accept, JText::_('COM_LICENSING_ACTION_CLAIM_ACCEPT'));
+            $links['decline'] = JHtml::link($decline, JText::_('COM_LICENSING_ACTION_CLAIM_DECLINE'));
+        }
+        return $links;
+    }
+
     protected function _getListQuery()
     {
         $db =& $this->getDbo();
