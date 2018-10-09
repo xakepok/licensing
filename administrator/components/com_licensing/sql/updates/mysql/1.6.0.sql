@@ -1,0 +1,1 @@
+CREATE TABLE `#__licensing_api_history` ( `id` INT NOT NULL AUTO_INCREMENT , `dat` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `uid` INT NOT NULL , `query` TEXT NOT NULL , PRIMARY KEY (`id`), INDEX `uid` (`uid`)) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci COMMENT = 'История запросов к API';
