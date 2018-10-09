@@ -14,6 +14,9 @@ $listDirn    = $this->escape($this->state->get('list.direction'));
         <?php echo JText::_('COM_LICENSING_ORDER_COUNT'); ?>
     </th>
     <th>
+        <?php echo JText::_('COM_LICENSING_SOFTWARE_HEAD_COUNT_AVALIBLE'); ?>
+    </th>
+    <th>
         <?php echo JText::_('COM_LICENSING_CLAIMS_HEAD_EMPLOYER'); ?>
     </th>
     <th>

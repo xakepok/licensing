@@ -23,6 +23,9 @@ foreach ($this->items as $i => $order) : ?>
             <?php echo $order->cnt; ?>
         </td>
         <td>
+            <?php echo $order->countAvalible; ?>
+        </td>
+        <td>
             <?php echo $order->empl_fio; ?>
         </td>
         <td>

@@ -23,8 +23,10 @@ class LicensingModelOrders extends ListModel
     {
         $db =& $this->getDbo();
         $query = $db->getQuery(true);
+        $format = LicensingHelper::getParams("format_date_site", '%d.%m.%Y');
         $query
-            ->select("`o`.`id`, `o`.`claimID`, DATE_FORMAT(`c`.`dat`,'%d.%m.%Y') as `dat`, `c`.`empl_fio`, `c`.`structure`, `s`.`name` as `product`, `o`.`cnt`, `c`.`state`")
+            ->select("`o`.`id`, `o`.`claimID`, DATE_FORMAT(`c`.`dat`,'{$format}') as `dat`, `c`.`empl_fio`, `c`.`structure`, `c`.`state`")
+            ->select("`s`.`name` as `product`, `o`.`cnt`, IF(`s`.`unlim`=1,'∞',`s`.`countAvalible`) as `countAvalible`")
             ->from("`#__licensing_orders` as `o`")
             ->leftJoin('`#__licensing_claims` as `c` ON `c`.`id` = `o`.`claimID`')
             ->leftJoin('`#__licensing_software` as `s` ON `s`.`id` = `o`.`softwareID`');
