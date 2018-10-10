@@ -16,6 +16,9 @@
         <div class="js-stools-field-filter">
             <?php echo LicensingHtmlFilters::claim($this->state->get('filter.claim')); ?>
         </div>
+        <div class="js-stools-field-filter">
+            <?php echo LicensingHtmlFilters::state($this->state->get('filter.state')); ?>
+        </div>
         <div class="btn-wrapper">
             <button type="button" class="btn hasTooltip js-stools-btn-clear"
                     onclick="document.getElementById('filter_search').value='';this.form.submit();">

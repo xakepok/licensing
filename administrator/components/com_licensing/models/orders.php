@@ -50,13 +50,19 @@ class LicensingModelOrders extends ListModel
         if (!empty($search))
         {
             $search = $db->quote('%' . $db->escape($search, true) . '%', false);
-            $query->where('`s`.`name` LIKE ' . $search);
+            $query->where('`c`.`empl_fio` LIKE ' . $search);
         }
         // Фильтруем по заявке.
         $claim = $this->getState('filter.claim');
         if (is_numeric($claim))
         {
             $query->where('`o`.`claimID` = ' . (int) $claim);
+        }
+        // Фильтруем статусу заявки
+        $state = $this->getState('filter.state');
+        if (is_numeric($state))
+        {
+            $query->where('`c`.`state` = ' . (int) $state);
         }
 
         /* Сортировка */
@@ -107,9 +113,11 @@ class LicensingModelOrders extends ListModel
     protected function populateState($ordering = null, $direction = null)
     {
         $search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
+        $state = $this->getUserStateFromRequest($this->context . '.filter.state', 'filter_state');
         $claim = $this->getUserStateFromRequest($this->context . '.filter.claim', 'filter_claim', '', 'string');
         $this->setState('filter.search', $search);
         $this->setState('filter.company', $claim);
+        $this->setState('filter.state', $state);
         parent::populateState('`c`.`dat`', 'desc');
     }
 
@@ -117,6 +125,7 @@ class LicensingModelOrders extends ListModel
     {
         $id .= ':' . $this->getState('filter.search');
         $id .= ':' . $this->getState('filter.claim');
+        $id .= ':' . $this->getState('filter.state');
         return parent::getStoreId($id);
     }
 }

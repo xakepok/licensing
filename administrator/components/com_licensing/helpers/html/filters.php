@@ -208,7 +208,7 @@ abstract class LicensingHtmlFilters
     {
         $options = array();
         $view = JFactory::getApplication()->input->getString('view');
-        if ($view != 'claims')
+        if ($view != 'claims' && $view != 'orders')
         {
             $options[] = JHtml::_('select.option', '1', 'JPUBLISHED');
             $options[] = JHtml::_('select.option', '0', 'JUNPUBLISHED');
