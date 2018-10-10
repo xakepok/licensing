@@ -22,7 +22,7 @@ abstract class LicensingHtmlFilters
         $options = array();
         $options[] = JHtml::_('select.option', '', 'COM_LICENSING_FILTER_CLAIM');
         $options = array_merge($options, self::claimOptions());
-        $attribs = 'class="inputbox" onchange="this.form.submit()"';
+        $attribs = 'onchange="this.form.submit()" style="width:400px;"';
         return JHtml::_('select.genericlist', $options, 'filter_claim', $attribs, 'value', 'text', $selected, null, true);
     }
 
@@ -84,8 +84,7 @@ abstract class LicensingHtmlFilters
         $query
             ->select("`id`, `empl_fio`, DATE_FORMAT(`dat`,'%d.%m.%Y') as `dat`")
             ->from('#__licensing_claims')
-            ->where('`state` = 0')
-            ->order("`dat` DESC");
+            ->order("`id` DESC");
         $result = $db->setQuery($query)->loadObjectList();
 
         $options = array();
