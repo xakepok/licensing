@@ -40,10 +40,6 @@ class LicensingModelClaims extends ListModel
         {
             $query->where('`state` = ' . (int) $published);
         }
-        elseif ($published === '')
-        {
-            $query->where("`state` = 0");
-        }
 
         /* Сортировка */
         $orderCol  = $this->state->get('list.ordering', '`dat`');
