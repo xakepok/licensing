@@ -4,38 +4,28 @@ defined('_JEXEC') or die;
 foreach ($this->items as $i => $order) : ?>
     <tr class="row0">
         <td class="center">
-            <?php echo JHtml::_('grid.id', $i, $order->id); ?>
+            <?php echo JHtml::_('grid.id', $i, $order['id']); ?>
         </td>
         <td>
-            <?php
-            if ($order->state == '0')
-            {
-                $link = JRoute::_('index.php?option=com_licensing&view=order&layout=edit&id='.$order->id.'&claimID='.$order->claimID);
-                echo JHtml::link($link, $order->product);
-            }
-            else
-            {
-                echo $order->product;
-            }
-            ?>
+            <?php echo $order['product'];?>
         </td>
         <td>
-            <?php echo $order->cnt; ?>
+            <?php echo $order['cnt']['need']; ?>
         </td>
         <td>
-            <?php echo $order->countAvalible; ?>
+            <?php echo $order['cnt']['all']; ?>
         </td>
         <td>
-            <?php echo $order->empl_fio; ?>
+            <?php echo $order['employer']; ?>
         </td>
         <td>
-            <?php echo $order->structure; ?>
+            <?php echo $order['structure']; ?>
         </td>
         <td>
-            <?php echo $order->dat; ?>
+            <?php echo $order['dat']; ?>
         </td>
         <td>
-            <?php echo $order->id; ?>
+            <?php echo $order['id']; ?>
         </td>
     </tr>
 <?php endforeach; ?>

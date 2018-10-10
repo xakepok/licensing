@@ -40,7 +40,7 @@ class LicensingModelOrders extends ListModel
         $format = LicensingHelper::getParams("format_date_site", '%d.%m.%Y');
         $query
             ->select("`o`.`id`, `o`.`claimID`, DATE_FORMAT(`c`.`dat`,'{$format}') as `dat`, `c`.`empl_fio`, `c`.`structure`, `c`.`state`")
-            ->select("`s`.`name` as `product`, `o`.`cnt`, IF(`s`.`unlim`=1,'∞',`s`.`countAvalible`) as `countAvalible`")
+            ->select("`s`.`name` as `product`, `o`.`cnt`, `countAvalible`, `s`.`unlim`")
             ->from("`#__licensing_orders` as `o`")
             ->leftJoin('`#__licensing_claims` as `c` ON `c`.`id` = `o`.`claimID`')
             ->leftJoin('`#__licensing_software` as `s` ON `s`.`id` = `o`.`softwareID`');
@@ -65,6 +65,42 @@ class LicensingModelOrders extends ListModel
         $query->order($db->escape($orderCol . ' ' . $orderDirn));
 
         return $query;
+    }
+
+    public function getItems()
+    {
+        $result = array();
+        $items = parent::getItems();
+        foreach ($items as $item)
+        {
+            $arr = array();
+            $arr['id'] = $item->id;
+            if ($item->state != 0)
+            {
+                $arr['product'] = $item->product;
+            }
+            else
+            {
+                $url = JRoute::_('index.php?option=com_licensing&view=order&layout=edit&id='.$item->id.'&claimID='.$item->claimID);
+                $arr['product'] = JHtml::link($url, $item->product);
+            }
+            $arr['cnt'] = array();
+            $arr['cnt']['need'] = $item->cnt;
+            $arr['cnt']['all'] = 0;
+            if ($item->state != 0)
+            {
+                $arr['cnt']['all'] = ($item->unlim != 1) ? $item->countAvalible : "∞";
+            }
+            if ($item->state == 0)
+            {
+                $arr['cnt']['all'] = ($item->unlim != 1) ? $item->cnt += $item->countAvalible : "∞";
+            }
+            $arr['employer'] = $item->empl_fio;
+            $arr['structure'] = $item->structure;
+            $arr['dat'] = $item->dat;
+            $result[] = $arr;
+        }
+        return $result;
     }
 
     /* Сортировка по умолчанию */
