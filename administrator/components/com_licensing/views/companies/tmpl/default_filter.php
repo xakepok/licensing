@@ -4,9 +4,9 @@
         <div class="btn-wrapper input-append">
             <input type="text" autocomplete="off" name="filter_search" id="filter_search"
                    value="<?php echo $this->escape($this->state->get('filter.search')); ?>"
-                   title aria-label="<?php echo JText::_('COM_LICENSING_CLAIMS_HEAD_EMPLOYER'); ?>"
-                   data-original-title="<?php echo JText::_('COM_LICENSING_CLAIMS_HEAD_EMPLOYER'); ?>"
-                   placeholder="<?php echo JText::_('COM_LICENSING_CLAIMS_HEAD_EMPLOYER'); ?>"
+                   title aria-label="<?php echo JText::_('COM_LICENSING_FILTER_COMPANY'); ?>"
+                   data-original-title="<?php echo JText::_('COM_LICENSING_FILTER_COMPANY'); ?>"
+                   placeholder="<?php echo JText::_('COM_LICENSING_FILTER_COMPANY'); ?>"
             >
             <button type="submit" class="btn hasTooltip">
                 <?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?>
