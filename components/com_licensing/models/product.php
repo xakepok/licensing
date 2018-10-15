@@ -7,7 +7,6 @@ class LicensingModelProduct extends ItemModel
     public $id;
     public function __construct(array $config)
     {
-        $this->id = JFactory::getApplication()->input->getInt('id', null);
         parent::__construct($config);
     }
 
@@ -18,8 +17,11 @@ class LicensingModelProduct extends ItemModel
 
     public function getItem()
     {
+        $this->id = JFactory::getApplication()->input->getInt('id', 0);
         $arr = array();
+        if ($this->id === 0) return $arr;
         $db =& $this->getDbo();
+        $this->id = $db->quote($this->id);
         $format = LicensingHelper::getParams("format_date_site", '%d.%m.%Y');
         $query = $db->getQuery(true);
         $query->select('`s`.`name` as `product`, `s`.`unlim`, `l`.`unlim` as `unlimLic`, `s`.`about`')
