@@ -90,6 +90,7 @@ class TableLicensingClaims extends Table
         {
             $db->setQuery($query)->execute();
             LicensingHelper::notifyAdmin($insertID);
+            LicensingHelper::notifyUser($insertID);
         }
 
         return true;

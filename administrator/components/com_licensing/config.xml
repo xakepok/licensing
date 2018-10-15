@@ -207,6 +207,37 @@
 			   component="com_licensing"
 			   section="component">
 		</field>
+		<field name="spacer_notify_user_create"
+			   type="spacer"
+			   label="COM_LICENSING_OPTION_NOTIFY_NEW_ORDER_USER_CREATE"
+			   class="inputbox" />
+		<field name="notify_users_create"
+			   type="list"
+			   label="COM_LICENSING_OPTION_NOTIFY_NEW_ORDER_USER_CREATE"
+			   component="com_licensing"
+			   section="component">
+			<option value="0">COM_LICENSING_NO</option>
+			<option value="1">COM_LICENSING_YES</option>
+		</field>
+		<field name="notify_user_theme_create"
+			   type="text"
+			   label="COM_LICENSING_OPTION_NEW_ORDER_NOTIFY_THEME"
+			   component="com_licensing"
+			   section="component">
+		</field>
+		<field name="notify_user_text_create"
+			   type="text"
+			   label="COM_LICENSING_OPTION_NEW_ORDER_NOTIFY_TEXT"
+			   component="com_licensing"
+			   section="component">
+		</field>
+		<field name="notify_user_replyto_create"
+			   type="text"
+			   label="COM_LICENSING_OPTION_NEW_ORDER_NOTIFY_USER_REPLYTO"
+			   description="COM_LICENSING_OPTION_NEW_ORDER_NOTIFY_USER_REPLYTO_DESC"
+			   component="com_licensing"
+			   section="component">
+		</field>
 		<field name="spacer_notify_admin"
 			   type="spacer"
 			   label="COM_LICENSING_OPTION_NOTIFY_NEW_ORDER_ADMIN"

@@ -101,6 +101,22 @@ class LicensingHelper
         }
     }
 
+    /* Уведомление юзеров о новой заявке на лицензию */
+    public static function notifyUser(int $claimID): void
+    {
+        if (self::getParams('notify_users_create') == false) return;
+        $config =& JFactory::getConfig();
+        $mailer =& JFactory::getMailer();
+        $sender = array($config->get('config.mailfrom'), $config->get('config.fromname'));
+        $mailer->setSender($sender);
+        $mailer->setSubject(self::getParams('notify_user_theme_create'));
+        $mailer->addRecipient($_POST['jform']['email']);
+        $body = sprintf(self::getParams('notify_user_text_create'), $claimID);
+        $mailer->isHtml(true);
+        $mailer->setBody($body);
+        $mailer->Send();
+    }
+
 	/* Уведомление админов о новой заявке на лицензию */
 	public static function notifyAdmin(int $claimID): void
     {
