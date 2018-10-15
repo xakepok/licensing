@@ -1,42 +1,41 @@
 <?php
 // Запрет прямого доступа.
 defined('_JEXEC') or die;
-foreach ($this->items as $i => $claim) :
-    $canChange = JFactory::getUser()->authorise('core.edit.state', 'com_licensing.claim.' . $item->id); ?>
+foreach ($this->items as $i => $item) :
+    $canChange = JFactory::getUser()->authorise('core.edit.state', 'com_licensing.claim.' . $item['id']); ?>
     <tr class="row0">
         <td class="center">
-            <?php echo JHtml::_('grid.id', $i, $claim->id); ?>
+            <?php echo JHtml::_('grid.id', $i, $item['id']); ?>
         </td>
         <td>
-            <?php echo JHtml::_('jgrid.published', $claim->state, $i, 'claims.', $canChange); ?>
+            <?php echo JHtml::_('jgrid.published', $item['state'], $i, 'claims.', $canChange); ?>
         </td>
         <td>
-            <?php $link = JRoute::_('index.php?option=com_licensing&view=claim&layout=edit&uid='.$claim->uid.'&id='.$claim->id);
-            echo JHtml::link($link, $claim->empl_fio);
-            ?>
+            <?php echo $item['employer']; ?>
         </td>
         <td>
-            <?php echo $claim->structure; ?>
+            <?php echo $item['structure']; ?>
         </td>
         <td>
-            <?php $link = JRoute::_('index.php?option=com_licensing&view=orders&filter_claim='.$claim->id);
-            echo JHtml::link($link, JText::_('COM_LICENSING_CLAIMS_HEAD_SOFTWARE'));
-            ?>
+            <?php echo $item['soft']; ?>
         </td>
         <td>
-            <?php echo $claim->dat; ?>
+            <?php echo $item['dat']; ?>
         </td>
         <td>
-            <?php echo $claim->email; ?>
+            <?php echo $item['email']; ?>
         </td>
         <td>
-            <?php echo $claim->phone; ?>
+            <?php echo $item['phone']; ?>
         </td>
         <td>
-            <?php echo $claim->manager; ?>
+            <?php echo $item['manager']; ?>
         </td>
         <td>
-            <?php echo $claim->id; ?>
+            <?php echo $item['status']; ?>
+        </td>
+        <td>
+            <?php echo $item['id']; ?>
         </td>
     </tr>
 <?php endforeach; ?>

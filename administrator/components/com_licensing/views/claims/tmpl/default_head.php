@@ -31,6 +31,9 @@ $listDirn    = $this->escape($this->state->get('list.direction'));
     <th>
 		<?php echo JText::_('COM_LICENSING_CLAIMS_HEAD_USER'); ?>
     </th>
+    <th>
+		<?php echo JText::_('COM_LICENSING_CLAIMS_HEAD_STATUS'); ?>
+    </th>
     <th width="1%">
         <?php echo JHtml::_('grid.sort', 'COM_LICENSING_CLAIMS_HEAD_ID', '`id`', $listDirn, $listOrder); ?>
     </th>

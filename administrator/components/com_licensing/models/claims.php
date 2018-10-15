@@ -23,7 +23,8 @@ class LicensingModelClaims extends ListModel
         $db =& $this->getDbo();
         $query = $db->getQuery(true);
         $query
-            ->select('`c`.`id`, `empl_fio`, `empl_guid`, `c`.`uid`, `c`.`email`, `phone`, DATE_FORMAT(`dat`,\'%d.%m.%Y\') as `dat`, `structure`, `u`.`name` as `manager`, `state`')
+            ->select('`c`.`id`, `empl_fio`, `empl_guid`, `c`.`uid`, `c`.`email`, `phone`, `structure`, `u`.`name` as `manager`, `state`')
+            ->select("DATE_FORMAT(`dat`,'%d.%m.%Y') as `dat`")
             ->from("#__licensing_claims as `c`")
             ->leftJoin('#__users as `u` ON `u`.`id` = `c`.`user_id`');
 
@@ -47,6 +48,32 @@ class LicensingModelClaims extends ListModel
         $query->order($db->escape($orderCol . ' ' . $orderDirn));
 
         return $query;
+    }
+
+    public function getItems()
+    {
+        $items = parent::getItems();
+        $result = array();
+        foreach ($items as $item) {
+            $arr = array();
+            $url['employer'] = JRoute::_('index.php?option=com_licensing&amp;view=claim&amp;layout=edit&amp;uid='.$item->uid.'&amp;id='.$item->id);
+            $url['soft'] = JRoute::_('index.php?option=com_licensing&amp;view=orders&amp;filter_claim='.$item->id);
+            $link['employer'] = JHtml::link($url['employer'], $item->empl_fio);
+            $link['soft'] = JHtml::link($url['soft'], JText::_('COM_LICENSING_CLAIMS_HEAD_SOFTWARE'));
+            $arr['id'] = $item->id;
+            $arr['employer'] = $link['employer'];
+            $arr['soft'] = $link['soft'];
+            $arr['structure'] = $item->structure;
+            $arr['dat'] = $item->dat;
+            $arr['email'] = $item->email;
+            $arr['phone'] = $item->phone;
+            $arr['manager'] = $item->manager;
+            $arr['status'] = LicensingHelperClaims::getStatus($item->state);
+            $arr['state'] = $item->state;
+
+            $result[] = $arr;
+        }
+        return $result;
     }
 
     /* Сортировка по умолчанию */
