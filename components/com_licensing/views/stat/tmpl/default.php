@@ -19,6 +19,7 @@ HTMLHelper::_('stylesheet', 'com_licensing/style.css', array('version' => 'auto'
         <li>
             <?php echo sprintf(JText::_('COM_LICENSING_STAT_SOFTWARE_COUNT'), $product, $info['count']);?>
             <?php if ($info['expire'] !== null) echo sprintf(JText::_('COM_LICENSING_STAT_SOFTWARE_EXPIRE'), $info['expire']); ?>
+            <?php echo " - ", $info['status'];?>
         </li>
         <?php endforeach; ?>
     </ul>

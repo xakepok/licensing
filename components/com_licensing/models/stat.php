@@ -28,7 +28,6 @@ class LicensingModelStat extends ListModel
             ->leftJoin("`#__licensing_claims` as `c` ON `c`.`id` = `o`.`claimID`")
             ->leftJoin("`#__licensing_software` as `s` ON `s`.`id` = `o`.`softwareID`")
             ->leftJoin("`#__licensing_licenses` as `l` ON `l`.`id` = `s`.`licenseID`")
-            ->where("(`l`.`unlim` = 1 OR `l`.`dateExpires` > CURRENT_DATE())")
             ->where("(`c`.`state` = 1 AND `s`.`state` = 1 AND `l`.`state` = 1)");
 
         /* Фильтр */
@@ -56,6 +55,10 @@ class LicensingModelStat extends ListModel
             if (!isset($result[$item->structure][$item->software])) $result[$item->structure][$item->software] = array('count' => 0);
             $result[$item->structure][$item->software]['count'] += $item->cnt;
             $result[$item->structure][$item->software]['expire'] = ($item->unlim != 1) ? $item->dateExpires : null;
+            $d1 = new DateTime($item->dateExpires);
+            $d2 = new DateTime();
+            $status = (($d1 < $d2) && ($item->unlim != 1)) ? JText::_('COM_LICENSING_STAT_LICENSE_EXPIRE') : JText::_('COM_LICENSING_STAT_LICENSE_ACTIVE');
+            $result[$item->structure][$item->software]['status'] = $status;
         }
         return $result;
     }
