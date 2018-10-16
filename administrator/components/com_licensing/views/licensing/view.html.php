@@ -1,12 +1,4 @@
 <?php
-/**
- * @package    licensing
- *
- * @author     asharikov <your@email.com>
- * @copyright  A copyright
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
- * @link       http://your.url.com
- */
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
@@ -14,40 +6,12 @@ use Joomla\CMS\MVC\View\HtmlView;
 
 defined('_JEXEC') or die;
 
-/**
- * Licensing view.
- *
- * @package  licensing
- * @since    1.0
- */
 class LicensingViewLicensing extends HtmlView
 {
-	/**
-	 * Licensing helper
-	 *
-	 * @var    LicensingHelper
-	 * @since  1.0
-	 */
-	protected $helper;
+	protected $helper, $check;
 
-	/**
-	 * The sidebar to show
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
 	protected $sidebar = '';
 
-	/**
-	 * Execute and display a template script.
-	 *
-	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
-	 *
-	 * @return  mixed  A string if successful, otherwise a JError object.
-	 *
-	 * @see     fetch()
-	 * @since   1.0
-	 */
 	public function display($tpl = null)
 	{
 		// Show the toolbar
@@ -58,20 +22,15 @@ class LicensingViewLicensing extends HtmlView
 		$this->helper->addSubmenu('licensing');
 		$this->sidebar = JHtmlSidebar::render();
 
+		$this->check = $this->get('SoftwareCheck');
+
 		// Display it all
 		return parent::display($tpl);
 	}
 
-	/**
-	 * Displays a toolbar for a specific page.
-	 *
-	 * @return  void.
-	 *
-	 * @since   1.0
-	 */
 	private function toolbar()
 	{
-		JToolBarHelper::title(Text::_('COM_LICENSING'), '');
+		JToolBarHelper::title(Text::_('COM_LICENSING')." - ".JText::_('COM_LICENSING_SERVICE'), '');
 
 		// Options button.
 		if (Factory::getUser()->authorise('core.admin', 'com_licensing'))

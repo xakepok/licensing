@@ -1,19 +1,11 @@
 <?php
-/**
- * @package    licensing
- *
- * @author     asharikov <your@email.com>
- * @copyright  A copyright
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
- * @link       http://your.url.com
- */
-
 defined('_JEXEC') or die;
-
 ?>
 <div id="j-sidebar-container" class="span2">
-	<?php echo $this->sidebar; ?>
+    <?php echo $this->sidebar; ?>
 </div>
 <div id="j-main-container" class="span10">
-
+    <div style="max-height: 400px; width: 300px; overflow: auto;">
+        <?php echo $this->loadTemplate('check'); ?>
+    </div>
 </div>
