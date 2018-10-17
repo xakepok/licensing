@@ -18,6 +18,9 @@ defined('_JEXEC') or die;
              <?php echo sprintf(JText::_('COM_LICENSING_SERVICE_SOFTWARE_DIFFERENT_ORDER'), $item['order']);?>
          </li>
          <li>
+             <?php echo sprintf(JText::_('COM_LICENSING_SERVICE_SOFTWARE_DIFFERENT_RESERV'), $item['reserv']);?>
+         </li>
+         <li>
              <?php echo sprintf(JText::_('COM_LICENSING_SERVICE_SOFTWARE_DIFFERENT_DIFF'), $item['diff']);?>
          </li>
     </ul>
