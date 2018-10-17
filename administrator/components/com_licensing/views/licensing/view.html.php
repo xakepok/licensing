@@ -8,7 +8,7 @@ defined('_JEXEC') or die;
 
 class LicensingViewLicensing extends HtmlView
 {
-	protected $helper, $check;
+	protected $helper, $check, $populate;
 
 	protected $sidebar = '';
 
@@ -23,6 +23,7 @@ class LicensingViewLicensing extends HtmlView
 		$this->sidebar = JHtmlSidebar::render();
 
 		$this->check = $this->get('SoftwareCheck');
+		$this->populate = $this->get('PopulateSoft');
 
 		// Display it all
 		return parent::display($tpl);

@@ -21,6 +21,6 @@ class LicensingViewProduct extends HtmlView
     protected function _prepareDocument()
     {
         $doc = JFactory::getDocument();
-        $doc->addStyleSheet('/media/com_licensing/css/style.css');
+        $doc->setTitle($this->item['product']);
     }
 }

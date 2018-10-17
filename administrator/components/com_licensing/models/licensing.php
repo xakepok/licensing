@@ -8,6 +8,37 @@ class LicensingModelLicensing extends BaseDatabaseModel
     /*Сравниваем количество выданного ПО с количеством оставшегося*/
     public function getSoftwareCheck(): array
     {
+        $soft = $this->getSoftList();
+        foreach ($soft as $id => $item)
+        {
+            $diff = (int) $item['all'] - $item['avaliable'] - $item['order'] - $item['reserv'];
+            if ($diff === 0)
+            {
+                unset($soft[$id]);
+                continue;
+            }
+            $soft[$id]['diff'] = $diff;
+        }
+        return $soft;
+    }
+
+    /*Статистика выданного ПО*/
+    public function getPopulateSoft(): array
+    {
+        $soft = $this->getSoftList();
+        $arr = array();
+        foreach ($soft as $id => $item)
+        {
+            if (!isset($arr[$item['name']])) $arr[$item['name']] = 0;
+            $arr[$item['name']] += $item['order'];
+        }
+        arsort($arr);
+        return $arr;
+    }
+
+    /*Список выданного софта*/
+    private function getSoftList(): array
+    {
         $db =& $this->getDbo();
         $query = $db->getQuery(true);
         $query
@@ -23,23 +54,13 @@ class LicensingModelLicensing extends BaseDatabaseModel
         $check = array();
         foreach ($soft as $item) {
             if (!isset($check[$item->id])) $check[$item->id] = array(
-                'name' => $item->name,
-                'all' => $item->all,
-                'avaliable' => $item->avaliable,
-                'order' => 0,
-                'reserv' => 0
+                'name' => $item->name, //Название продукта
+                'all' => $item->all, //Всего закуплено
+                'avaliable' => $item->avaliable, //Доступно
+                'order' => 0, //Выдано
+                'reserv' => 0 //В резерве
             );
             $check[$item->id][($item->state == '1') ? 'order' : 'reserv'] += $item->ordered;
-        }
-        foreach ($check as $id => $item)
-        {
-            $diff = (int) $item['all'] - $item['avaliable'] - $item['order'] - $item['reserv'];
-            if ($diff === 0)
-            {
-                unset($check[$id]);
-                continue;
-            }
-            $check[$id]['diff'] = $diff;
         }
         return $check;
     }
