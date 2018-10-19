@@ -10,6 +10,7 @@ class LicensingHelper
 	{
 		JHtmlSidebar::addEntry(Text::_('COM_LICENSING'), 'index.php?option=com_licensing&view=licensing', $vName == 'licensing');
 		JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_CLAIMS'), 'index.php?option=com_licensing&view=claims', $vName == 'claims');
+		JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_CLAIM'), 'index.php?option=com_licensing&view=claim&layout=edit', $vName == 'claim');
 		JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_ORDERS'), 'index.php?option=com_licensing&view=orders', $vName == 'orders');
 		JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_KEYS'), 'index.php?option=com_licensing&view=keys', $vName == 'keys');
 		JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_SOFTWARES'), 'index.php?option=com_licensing&view=softwares', $vName == 'softwares');

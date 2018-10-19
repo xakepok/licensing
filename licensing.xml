@@ -7,7 +7,7 @@
 	<authorUrl>http://ais.bmstu.ru</authorUrl>
 	<copyright>A copyright</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-	<version>1.7.4</version>
+	<version>1.7.5</version>
 	<description>COM_LICENSING_XML_DESCRIPTION</description>
 
 	<!-- Scripts to run on installation -->
@@ -65,6 +65,7 @@
 			-->
 			<menu link="option=com_licensing">COM_LICENSING</menu>
 			<menu view="claims">COM_LICENSING_MENU_CLAIMS</menu>
+			<menu link="option=com_licensing&amp;view=claim&amp;layout=edit">COM_LICENSING_MENU_CLAIM</menu>
 			<menu view="keys">COM_LICENSING_MENU_KEYS</menu>
 			<menu view="softwares">COM_LICENSING_MENU_SOFTWARES</menu>
 			<menu view="licenses">COM_LICENSING_MENU_LICENSES</menu>
