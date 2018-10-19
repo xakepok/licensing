@@ -130,9 +130,11 @@ class LicensingHelper
         $mailer->setSubject(self::getParams('notify_new_order_theme'));
         $users = self::getEmailsNotify('admins');
 
+        $needCopy = false; //Добавляем получателя или копию
         foreach ($users as $user)
         {
-            if (self::checkAdminNotify($user->id)) $mailer->addRecipient($user->email, $user->name);
+            if (self::checkAdminNotify($user->id)) (!$needCopy) ? $mailer->addRecipient($user->email, $user->name) : $mailer->addCc($user->email, $user->name);
+            $needCopy = true;
             $log = new JLogEntry($user->email, JLog::INFO, 'com_licensing');
             $logger->addEntry($log);
         }
