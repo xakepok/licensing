@@ -67,7 +67,7 @@ class TableLicensingClaims extends Table
 
         return true;
     }
-    public function store($updateNulls = false)
+    public function store($updateNulls = true)
     {
         parent::store($updateNulls);
         if ($_POST['jform']['id'] == '0') return true;

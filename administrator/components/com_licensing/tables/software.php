@@ -18,6 +18,11 @@ class TableLicensingSoftware extends Table
         parent::__construct('#__licensing_software', 'id', $db);
     }
 
+    public function store($updateNulls = true)
+    {
+        return parent::store($updateNulls);
+    }
+
     public function publish($pks = null, $state = 1, $userId = 0)
     {
         $k = $this->_tbl_key;
