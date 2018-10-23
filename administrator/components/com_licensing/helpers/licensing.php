@@ -9,16 +9,74 @@ class LicensingHelper
 	public function addSubmenu(string $vName): void
 	{
 		JHtmlSidebar::addEntry(Text::_('COM_LICENSING'), 'index.php?option=com_licensing&view=licensing', $vName == 'licensing');
-		JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_CLAIMS'), 'index.php?option=com_licensing&view=claims', $vName == 'claims');
-		JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_CLAIM'), 'index.php?option=com_licensing&view=claim&layout=edit', $vName == 'claim');
-		JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_ORDERS'), 'index.php?option=com_licensing&view=orders', $vName == 'orders');
-		JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_KEYS'), 'index.php?option=com_licensing&view=keys', $vName == 'keys');
-		JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_SOFTWARES'), 'index.php?option=com_licensing&view=softwares', $vName == 'softwares');
-		JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_LICENSES'), 'index.php?option=com_licensing&view=licenses', $vName == 'licenses');
-		JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_COMPANIES'), 'index.php?option=com_licensing&view=companies', $vName == 'companies');
-		JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_LICTYPES'), 'index.php?option=com_licensing&view=lictypes', $vName == 'lictypes');
-		JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_KEYTYPES'), 'index.php?option=com_licensing&view=keytypes', $vName == 'keytypes');
+        if (JFactory::getUser()->authorise('licensing.access.claims', 'com_licensing'))
+        {
+            JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_CLAIMS'), 'index.php?option=com_licensing&view=claims', $vName == 'claims');
+        }
+        if (JFactory::getUser()->authorise('licensing.access.claims', 'com_licensing'))
+        {
+            JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_CLAIM'), 'index.php?option=com_licensing&view=claim&layout=edit', $vName == 'claim');
+        }
+        if (JFactory::getUser()->authorise('licensing.access.claims', 'com_licensing'))
+        {
+            JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_ORDERS'), 'index.php?option=com_licensing&view=orders', $vName == 'orders');
+        }
+        if (JFactory::getUser()->authorise('licensing.access.keys', 'com_licensing'))
+        {
+            JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_KEYS'), 'index.php?option=com_licensing&view=keys', $vName == 'keys');
+        }
+        if (JFactory::getUser()->authorise('licensing.access.software', 'com_licensing'))
+        {
+            JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_SOFTWARES'), 'index.php?option=com_licensing&view=softwares', $vName == 'softwares');
+        }
+        if (JFactory::getUser()->authorise('licensing.access.licenses', 'com_licensing'))
+        {
+            JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_LICENSES'), 'index.php?option=com_licensing&view=licenses', $vName == 'licenses');
+        }
+        if (JFactory::getUser()->authorise('licensing.access.companies', 'com_licensing'))
+        {
+            JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_COMPANIES'), 'index.php?option=com_licensing&view=companies', $vName == 'companies');
+        }
+        if (JFactory::getUser()->authorise('licensing.access.lictypes', 'com_licensing'))
+        {
+            JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_LICTYPES'), 'index.php?option=com_licensing&view=lictypes', $vName == 'lictypes');
+        }
+        if (JFactory::getUser()->authorise('licensing.access.keytypes', 'com_licensing'))
+        {
+            JHtmlSidebar::addEntry(Text::_('COM_LICENSING_MENU_KEYTYPES'), 'index.php?option=com_licensing&view=keytypes', $vName == 'keytypes');
+        }
 	}
+
+	/* Соответствие вьюшки уровню доступа */
+	public static function checkAccessView()
+    {
+        $view = JFactory::getApplication()->input->getString('view');
+        if ($view == 'licensing') return true;
+        /*
+         * Массив вьюшка - уровень доступа
+         * Ключ - название вьюшки
+         * Значение - название соответствующего уровня доступа
+         */
+        $views = array(
+            'claims' => 'claims',
+            'claim' => 'claims',
+            'orders' => 'claims',
+            'order' => 'claims',
+            'keys' => 'keys',
+            'key' => 'keys',
+            'softwares' => 'software',
+            'software' => 'software',
+            'licenses' => 'licenses',
+            'license' => 'licenses',
+            'companies' => 'companies',
+            'company' => 'companies',
+            'lictypes' => 'lictypes',
+            'lictype' => 'lictypes',
+            'keytypes' => 'keytypes',
+            'keytype' => 'keytypes',
+        );
+        return JFactory::getUser()->authorise("licensing.access.{$views[$view]}", 'com_licensing');
+    }
 
 	/*Добавляем запись в историю API-запросов*/
 	public static function addApiHistory(int $uid): void

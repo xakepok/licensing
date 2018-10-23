@@ -11,5 +11,12 @@
 		<action name="core.edit.own" title="JACTION_EDITOWN" description="JACTION_EDITOWN_COMPONENT_DESC" />
 		<action name="core.edit.value" title="JACTION_EDITVALUE" description="JACTION_EDITVALUE_COMPONENT_DESC" />
 		<action name="core.notify.neworder" title="COM_LICENSING_OPTION_NOTIFY_NEW_ORDER" description="COM_LICENSING_OPTION_NOTIFY_NEW_ORDER_DESC" />
+		<action name="licensing.access.claims" title="COM_LICENSING_ACCESS_CLAIMS" description="COM_LICENSING_ACCESS_CLAIMS_DESC" />
+		<action name="licensing.access.keys" title="COM_LICENSING_ACCESS_KEYS" description="COM_LICENSING_ACCESS_KEYS_DESC" />
+		<action name="licensing.access.software" title="COM_LICENSING_ACCESS_SOFTWARE" description="COM_LICENSING_ACCESS_SOFTWARE_DESC" />
+		<action name="licensing.access.licenses" title="COM_LICENSING_ACCESS_LICENSES" description="COM_LICENSING_ACCESS_LICENSES_DESC" />
+		<action name="licensing.access.companies" title="COM_LICENSING_ACCESS_COMPANIES" description="COM_LICENSING_ACCESS_COMPANIES_DESC" />
+		<action name="licensing.access.lictypes" title="COM_LICENSING_ACCESS_LICTYPES" description="COM_LICENSING_ACCESS_LICTYPES_DESC" />
+		<action name="licensing.access.keytypes" title="COM_LICENSING_ACCESS_KEYTYPES" description="COM_LICENSING_ACCESS_KEYTYPES_DESC" />
 	</section>
 </access>
