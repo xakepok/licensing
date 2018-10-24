@@ -13,12 +13,9 @@ class TableLicensingClaims extends Table
     var $phone = null;
     var $dat = null;
     var $structure = null;
-    var $software = null;
-    var $status = null;
     var $status_user = null;
     var $status_time = null;
     var $comment = null;
-    var $scan_pic = null;
     var $state = null;
 
 	public function __construct(JDatabaseDriver $db)
