@@ -3,10 +3,12 @@ defined('_JEXEC') or die;
 error_reporting(0);
 jimport('joomla.form.helper');
 JFormHelper::loadFieldClass('list');
+
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 
-class JFormFieldEmployer extends JFormFieldList  {
-    protected  $type = 'Employer';
+class JFormFieldEmployer extends JFormFieldList
+{
+    protected $type = 'Employer';
 
     protected function getOptions()
     {
@@ -16,15 +18,12 @@ class JFormFieldEmployer extends JFormFieldList  {
 
         $options = array();
         if ($this->claim_id === false && $this->guid === false && $this->employer === false) $options[] = JHtml::_('select.option', '', '');
-        if ($this->claim_id === false)
-        {
+        if ($this->claim_id === false) {
             $ldap = BaseDatabaseModel::getInstance('Ldap', 'LicensingModel');
-            if ($this->employer !== false)
-            {
+            if ($this->employer !== false) {
                 $users = $ldap->searchUsers($this->employer);
             }
-            if ($this->guid !== false)
-            {
+            if ($this->guid !== false) {
                 $users = $ldap->searchUsers(false, $this->guid);
             }
 
@@ -41,14 +40,13 @@ class JFormFieldEmployer extends JFormFieldList  {
 
                 $params = array(
                     "attr" => $arr,
+                    "option.attr" => "optionattr",
                 );
 
                 $options[] = JHtml::_('select.option', $arr["data-uid"], $arr["data-fio"], $params);
                 if ($this->guid !== false) break;
             }
-        }
-        else
-        {
+        } else {
             $db =& JFactory::getDbo();
             $query = $db->getQuery(true);
             $query->select('`empl_guid`, `empl_fio`')->from('#__licensing_claims')->where("`id` = {$this->claim_id}");
@@ -63,5 +61,5 @@ class JFormFieldEmployer extends JFormFieldList  {
         return $options;
     }
 
-    private $employer, $uid, $claim_id, $guid;
+    private $employer, $claim_id, $guid;
 }
