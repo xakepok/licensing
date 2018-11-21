@@ -34,7 +34,7 @@ class LicensingViewLictypes extends HtmlView
 		JToolBarHelper::title(Text::_('COM_LICENSING_MENU_LICTYPES'), '');
 
 		// Options button.
-		if (Factory::getUser()->authorise('core.admin', 'com_licensing'))
+		if (Factory::getUser()->authorise('licensing.access.lictypes', 'com_licensing'))
 		{
 		    JToolbarHelper::addNew('lictype.add');
 		    JToolbarHelper::editList('lictype.edit');

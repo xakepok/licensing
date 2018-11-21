@@ -70,8 +70,19 @@
                 class="inputbox"
                 default="0"
         >
-            <option value="0">COM_LICENSING_NO</option>
-            <option value="1">COM_LICENSING_YES</option>
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field
+                name="freeware"
+                type="list"
+                label="COM_LICENSING_LICENSES_HEAD_FREEWARE"
+                description="COM_LICENSING_LICENSES_HEAD_FREEWARE_DESC"
+                class="inputbox"
+                default="0"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
         </field>
         <field
                 name="available"
@@ -82,8 +93,8 @@
                 size="1"
                 default="1"
         >
-            <option value="0">COM_LICENSING_NO</option>
-            <option value="1">COM_LICENSING_YES</option>
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
         </field>
         <field
                 name="state"
