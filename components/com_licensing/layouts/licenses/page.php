@@ -20,6 +20,9 @@ extract($displayData);
                         <?php echo JText::_('COM_LICENSING_LICENSES_LIC_DOGOVOR'); ?>
                     </th>
                     <th>
+                        <?php echo JText::_('COM_LICENSING_LICENSES_HEAD_FREEWARE_SHORT'); ?>
+                    </th>
+                    <th>
                         <?php echo JHtml::_('grid.sort', 'COM_LICENSING_LICENSES_LIC_START', '`start`', $listDirn, $listOrder); ?>
                     </th>
                     <th>
@@ -34,6 +37,7 @@ extract($displayData);
                     <td style="border: 1px solid black;"><?php echo $license['type'];?></td>
                     <td style="border: 1px solid black;"><?php echo $license['number'];?></td>
                     <td style="border: 1px solid black;"><?php echo $license['contract'];?></td>
+                    <td style="border: 1px solid black;"><?php echo $license['freeware'];?></td>
                     <td style="border: 1px solid black;"><?php echo $license['dateStart'];?></td>
                     <td style="border: 1px solid black;"><?php echo $license['dateExpires'];?></td>
                 </tr>

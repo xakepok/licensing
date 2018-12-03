@@ -23,6 +23,9 @@ foreach ($this->items as $i => $license) :
             <?php echo $license->dogovor; ?>
         </td>
         <td>
+            <?php echo ($license->freeware != 1) ? JText::sprintf('JNO') : JText::sprintf('JYES') ; ?>
+        </td>
+        <td>
             <?php echo $license->dat; ?>
         </td>
         <td>

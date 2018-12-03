@@ -20,6 +20,9 @@ $listDirn    = $this->escape($this->state->get('list.direction'));
         <?php echo JText::_('COM_LICENSING_LICENSES_HEAD_DOGOVOR'); ?>
     </th>
     <th>
+        <?php echo JText::_('COM_LICENSING_LICENSES_HEAD_FREEWARE_SHORT'); ?>
+    </th>
+    <th>
         <?php echo JHtml::_('grid.sort', 'COM_LICENSING_LICENSES_HEAD_DATES', '`dateStart`', $listDirn, $listOrder); ?>
     </th>
     <th>

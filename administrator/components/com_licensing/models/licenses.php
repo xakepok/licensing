@@ -25,7 +25,7 @@ class LicensingModelLicenses extends ListModel
         $db =& $this->getDbo();
         $query = $db->getQuery(true);
         $query
-            ->select("`l`.`id`, `l`.`name`, `l`.`number`, `l`.`dogovor`, `t`.`type` as `licenseType`, `c`.`name` as `company`, `l`.`state`")
+            ->select("`l`.`id`, `l`.`name`, `l`.`number`, `l`.`dogovor`, `l`.`freeware`, `t`.`type` as `licenseType`, `c`.`name` as `company`, `l`.`state`")
             ->select("CONCAT(DATE_FORMAT(`l`.`dateStart`,'%d.%m.%Y'),' - ',IF(`l`.`unlim`=1,'".JText::_('COM_LICENSING_LICENSES_UNLIM')."',DATE_FORMAT(`l`.`dateExpires`,'%d.%m.%Y'))) as `dat`")
             ->from("`#__licensing_licenses` as `l`")
             ->leftJoin('`#__licensing_type_licenses` as `t` ON `t`.`id` = `l`.`licenseType`')

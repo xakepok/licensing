@@ -24,7 +24,7 @@ class LicensingModelLicenses extends ListModel
         $format = (JFactory::getApplication()->input->getString('format', 'html') == 'html') ? 'site' : 'api';
         $format = LicensingHelper::getParams("format_date_{$format}", '%d.%m.%Y');
         $query
-            ->select('`l`.`id`, `l`.`name`, `t`.`type`, `l`.`number`, `l`.`dogovor`, `unlim`')
+            ->select('`l`.`id`, `l`.`name`, `t`.`type`, `l`.`number`, `l`.`dogovor`, `l`.`freeware`, `unlim`')
             ->select("DATE_FORMAT(`dateStart`,'{$format}') as `dateStart`, DATE_FORMAT(`dateExpires`,'{$format}') as `dateExpires`")
             ->from('`#__licensing_licenses` as `l`')
             ->leftJoin("`#__licensing_type_licenses` as `t` ON `t`.`id`=`l`.`licenseType`")
@@ -63,9 +63,11 @@ class LicensingModelLicenses extends ListModel
                 $dogovor = (!empty($item->dogovor)) ? $item->dogovor : JText::_('COM_LICENSING_LICENSES_LIC_NO_INFO');
                 $arr['dateExpires'] = ($item->unlim != 1) ? $item->dateExpires : JText::_('COM_LICENSING_LICENSES_LIC_UNEXPECT');
                 $arr['number'] = (!empty($item->number)) ? $item->number : JText::_('COM_LICENSING_LICENSES_LIC_NUMBER_NO');
+                $arr['freeware'] = ($item->freeware != 1) ? JText::sprintf('JNO') : JText::sprintf('JYES');
             }
             else
             {
+                $arr['freeware'] = $item->freeware;
                 $dogovor = $item->dogovor;
                 if ($item->unlim != 1)
                 {

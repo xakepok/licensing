@@ -28,6 +28,7 @@ class LicensingModelSoftware extends ListModel
         $query
             ->select("`s`.`id`, `s`.`name` as `software`, `l`.`name` as `license`, `l`.`number`, `l`.`unlim` as `unlimLic`, `s`.`unlim` as `unlimSoft`, `s`.`countAvalible` as `cnt`, `l`.`dogovor`")
             ->select("DATE_FORMAT(`l`.`dateStart`,'{$format}') as `dateStart`, DATE_FORMAT(`l`.`dateExpires`,'{$format}') as `dateExpires`")
+            ->select("`l`.`freeware`")
             ->from("`#__licensing_software` as `s`")
             ->leftJoin("`#__licensing_licenses` as `l` ON `l`.`id` = `s`.`licenseID`")
             ->where("(`s`.`state` = 1 AND `l`.`state` = 1) AND (`l`.`dateExpires` > CURRENT_DATE() OR `l`.`unlim` = 1)");
@@ -70,6 +71,7 @@ class LicensingModelSoftware extends ListModel
             else
             {
                 $arr['software'] = $item->software;
+                $arr['freeware'] = $item->freeware;
                 $dogovor = (!empty($item->dogovor)) ? $item->dogovor : JText::_('COM_LICENSING_LICENSES_LIC_NO_INFO');
                 $arr['number'] = $item->number;
                 if ($item->unlimLic != 1)
