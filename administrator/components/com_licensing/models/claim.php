@@ -77,7 +77,7 @@ class LicensingModelClaim extends AdminModel {
 
     protected function prepareTable($table)
     {
-    	$nulls = array('status', 'comment', 'scan_pic', 'status_user', 'status_time'); //Поля, которые NULL
+    	$nulls = array('comment', 'status_user', 'status_time'); //Поля, которые NULL
 	    foreach ($nulls as $field)
 	    {
 		    if (!strlen($table->$field)) $table->$field = NULL;
