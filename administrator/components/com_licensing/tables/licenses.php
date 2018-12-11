@@ -12,6 +12,7 @@ class TableLicensingLicenses extends Table
     var $dateStart = null;
     var $dateExpires = null;
     var $unlim = null;
+    var $files = null;
     var $available = null;
     var $state = null;
 

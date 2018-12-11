@@ -51,7 +51,6 @@
                 type="calendar"
                 label="COM_LICENSING_LICENSES_END"
                 description="COM_LICENSING_LICENSES_END_DESC"
-                required="true"
                 class="input-xlarge"
         />
         <field
@@ -84,6 +83,13 @@
             <option value="0">JNO</option>
             <option value="1">JYES</option>
         </field>
+        <field
+                name="files"
+                type="filelist"
+                label="COM_LICENSING_LICENSES_HEAD_FILES"
+                description="COM_LICENSING_LICENSES_HEAD_FILES_DESC"
+                directory="images/dogovors"
+                />
         <field
                 name="available"
                 type="list"

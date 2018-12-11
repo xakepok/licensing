@@ -25,6 +25,7 @@ class LicensingModelLicenses extends ListModel
         $format = LicensingHelper::getParams("format_date_{$format}", '%d.%m.%Y');
         $query
             ->select('`l`.`id`, `l`.`name`, `t`.`type`, `l`.`number`, `l`.`dogovor`, `l`.`freeware`, `unlim`')
+            ->select('`l`.`files`')
             ->select("DATE_FORMAT(`dateStart`,'{$format}') as `dateStart`, DATE_FORMAT(`dateExpires`,'{$format}') as `dateExpires`")
             ->from('`#__licensing_licenses` as `l`')
             ->leftJoin("`#__licensing_type_licenses` as `t` ON `t`.`id`=`l`.`licenseType`")
@@ -64,6 +65,8 @@ class LicensingModelLicenses extends ListModel
                 $arr['dateExpires'] = ($item->unlim != 1) ? $item->dateExpires : JText::_('COM_LICENSING_LICENSES_LIC_UNEXPECT');
                 $arr['number'] = (!empty($item->number)) ? $item->number : JText::_('COM_LICENSING_LICENSES_LIC_NUMBER_NO');
                 $arr['freeware'] = ($item->freeware != 1) ? JText::sprintf('JNO') : JText::sprintf('JYES');
+                $url = JRoute::_(JUri::base()."images/dogovors/".$item->files);
+                $arr['files'] = (!empty($item->files)) ? JHtml::link($url, JText::sprintf('COM_LICENSING_LICENSES_HEAD_FILES_TEXT')) : JText::sprintf('JNO');
             }
             else
             {

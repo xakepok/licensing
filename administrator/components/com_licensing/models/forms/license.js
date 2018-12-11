@@ -7,7 +7,7 @@ function setUnlim()
     if (val == 1)
     {
         //de.disabled = true;
-        de.value = '0000-00-00 00:00:00';
+        //de.value = '0000-00-00 00:00:00';
     }
     if (val == 0)
     {
