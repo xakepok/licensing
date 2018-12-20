@@ -21,6 +21,7 @@ class TableLicensingClaims extends Table
 	public function __construct(JDatabaseDriver $db)
 	{
 		parent::__construct('#__licensing_claims', 'id', $db);
+        $this->setColumnAlias('published', 'state');
 	}
 
     public function publish($pks = null, $state = 1, $userId = 0)
