@@ -28,7 +28,7 @@ class LicensingModelStat extends ListModel
             ->leftJoin("`#__licensing_claims` as `c` ON `c`.`id` = `o`.`claimID`")
             ->leftJoin("`#__licensing_software` as `s` ON `s`.`id` = `o`.`softwareID`")
             ->leftJoin("`#__licensing_licenses` as `l` ON `l`.`id` = `s`.`licenseID`")
-            ->where("(`c`.`state` = 1 AND `s`.`state` = 1 AND `l`.`state` = 1)");
+            ->where("`c`.`state` = 1 AND `s`.`state` = 1 AND `l`.`state` = 1");
 
         /* Фильтр */
         $search = $this->getState('filter.search');
