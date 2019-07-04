@@ -9,7 +9,7 @@ class LicensingViewSoftwares extends HtmlView
 {
 	protected $helper;
 	protected $sidebar = '';
-	public $items, $state, $pagination, $reserv;
+	public $items, $state, $pagination, $reserv, $filterForm, $activeFilters;
 
 	public function display($tpl = null)
 	{
@@ -17,12 +17,14 @@ class LicensingViewSoftwares extends HtmlView
 	    $this->state = $this->get('State');
 	    $this->pagination = $this->get('Pagination');
 	    $this->reserv = LicensingHelperKeys::getSoftwareReserv();
+        $this->filterForm = $this->get('FilterForm');
+        $this->activeFilters = $this->get('ActiveFilters');
 
 		// Show the toolbar
 		$this->toolbar();
 
 		// Show the sidebar
-		$this->helper = new LicensingHelper;
+		$this->helper = new LicensingHelper();
 		$this->helper->addSubmenu('softwares');
 		$this->sidebar = JHtmlSidebar::render();
 

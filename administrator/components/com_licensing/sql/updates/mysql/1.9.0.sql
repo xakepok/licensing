@@ -1,0 +1,1 @@
+update `#__licensing_licenses` set `dateExpires` = null where `unlim`=1;
