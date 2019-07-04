@@ -17,9 +17,9 @@ class LicensingModelSoftwares extends ListModel
                 'l.dateExpires',
                 'l.name',
                 's.tip', 'tip',
-                's.licenseID', 'license',
-                'lictype',
-                'c.id',
+                'license',
+                'company',
+                'freeware',
                 's.state', 'state',
             );
         }
@@ -31,7 +31,7 @@ class LicensingModelSoftwares extends ListModel
         $db =& $this->getDbo();
         $query = $db->getQuery(true);
         $query
-            ->select("`s`.`id`, `s`.`name`, `s`.`count`, `s`.`countAvalible`, `s`.`unlim`, `s`.`state`")
+            ->select("`s`.`id`, `s`.`name`, `s`.`count`, `s`.`countAvalible`, IFNULL(`s`.`tip`, 0) as `tip`, `s`.`unlim`, `s`.`state`")
             ->select("`l`.`name` as `license`, `l`.`number`, `l`.`unlim` as `license_unlim`")
             ->select("DATE_FORMAT(`l`.`dateStart`,'%d.%m.%Y') as `dat_start`, DATE_FORMAT(`l`.`dateExpires`,'%d.%m.%Y') as `dat_end`")
             ->select("`c`.`name` as `company`")
@@ -71,21 +71,21 @@ class LicensingModelSoftwares extends ListModel
         {
             $query->where('`s`.`licenseID` = ' . (int) $license);
         }
-        // Фильтруем по типу лицензии.
-        $licenseType = $this->getState('filter.licenseType');
-        if (is_numeric($licenseType))
-        {
-            $query->where('`l`.`licenseType` = ' . (int) $licenseType);
-        }
         // Фильтруем по владелец.
         $company = $this->getState('filter.company');
         if (is_numeric($company))
         {
             $query->where('`t`.`companyID` = ' . (int) $company);
         }
+        // Фильтруем по свободности.
+        $freeware = $this->getState('filter.freeware');
+        if (is_numeric($freeware))
+        {
+            $query->where('`l`.`freeware` = ' . (int) $freeware);
+        }
 
         /* Сортировка */
-        $orderCol  = $this->state->get('list.ordering', '`type`');
+        $orderCol  = $this->state->get('list.ordering', 's.name');
         $orderDirn = $this->state->get('list.direction', 'asc');
         $query->order($db->escape($orderCol . ' ' . $orderDirn));
 
@@ -106,6 +106,7 @@ class LicensingModelSoftwares extends ListModel
             $arr['grid'] = JHtml::_('grid.id', $i, $item->id);
             $arr['count'] = ($item->unlim != '1') ? $item->count : '∞';
             $arr['available'] = ($item->unlim != '1') ? $item->countAvalible : '∞';
+            $arr['tip'] = JText::sprintf("COM_LICENSING_SOFTWARE_HEAD_TIP_" . $item->tip);
             $arr['license'] = $item->license;
             $arr['dat_start'] = $item->dat_start;
             $arr['dat_end'] = ($item->license_unlim != '1') ? $item->dat_end : JText::sprintf('COM_LICENSING_LICENSES_UNLIM');
@@ -119,16 +120,16 @@ class LicensingModelSoftwares extends ListModel
     {
         $search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
         $this->setState('filter.search', $search);
-        $published = $this->getUserStateFromRequest($this->context . '.filter.state', 'filter_state', '', 'string');
-        $this->setState('filter.state', $published);
-        $company = $this->getUserStateFromRequest($this->context . '.filter.company', 'filter_company', '', 'string');
-        $this->setState('filter.company', $company);
-        $licenseType = $this->getUserStateFromRequest($this->context . '.filter.licenseType', 'filter_licenseType', '', 'string');
-        $this->setState('filter.licenseType', $licenseType);
-        $license = $this->getUserStateFromRequest($this->context . '.filter.license', 'filter_license', '', 'string');
-        $this->setState('filter.license', $license);
         $tip = $this->getUserStateFromRequest($this->context . '.filter.tip', 'filter_tip', '', 'string');
         $this->setState('filter.tip', $tip);
+        $license = $this->getUserStateFromRequest($this->context . '.filter.license', 'filter_license', '', 'string');
+        $this->setState('filter.license', $license);
+        $company = $this->getUserStateFromRequest($this->context . '.filter.company', 'filter_company', '', 'string');
+        $this->setState('filter.company', $company);
+        $freeware = $this->getUserStateFromRequest($this->context . '.filter.freeware', 'filter_freeware', '', 'string');
+        $this->setState('filter.freeware', $freeware);
+        $published = $this->getUserStateFromRequest($this->context . '.filter.state', 'filter_state', '', 'string');
+        $this->setState('filter.state', $published);
         parent::populateState('s.name', 'asc');
     }
 
@@ -136,10 +137,10 @@ class LicensingModelSoftwares extends ListModel
     {
         $id .= ':' . $this->getState('filter.search');
         $id .= ':' . $this->getState('filter.tip');
-        $id .= ':' . $this->getState('filter.state');
-        $id .= ':' . $this->getState('filter.company');
-        $id .= ':' . $this->getState('filter.licenseType');
         $id .= ':' . $this->getState('filter.license');
+        $id .= ':' . $this->getState('filter.company');
+        $id .= ':' . $this->getState('filter.freeware');
+        $id .= ':' . $this->getState('filter.state');
         return parent::getStoreId($id);
     }
 }

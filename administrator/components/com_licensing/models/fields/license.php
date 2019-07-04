@@ -6,6 +6,7 @@ JFormHelper::loadFieldClass('list');
 class JFormFieldLicense extends JFormFieldList  {
     protected  $type = 'License';
     protected $needFilter = array('software'); //Список вьюшек, нуждающихся в фильтрации по активности
+    protected $loadExternally = 0;
 
     protected function getOptions()
     {
@@ -14,8 +15,7 @@ class JFormFieldLicense extends JFormFieldList  {
             $query
                 ->select("`id`, `name`, `number`")
                 ->from('#__licensing_licenses')
-                ->order("`name`")
-                ->where('`state` = 1');
+                ->order("`name`");
             $view = JFactory::getApplication()->input->getString('view');
             $id = JFactory::getApplication()->input->getInt('id', 0);
 
@@ -39,5 +39,11 @@ class JFormFieldLicense extends JFormFieldList  {
         $options = array_merge(parent::getOptions(), $options);
 
         return $options;
+    }
+
+    public function getOptionsExternally()
+    {
+        $this->loadExternally = 1;
+        return $this->getOptions();
     }
 }

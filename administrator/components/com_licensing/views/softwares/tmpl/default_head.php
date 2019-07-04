@@ -13,6 +13,9 @@ $listDirn    = $this->escape($this->state->get('list.direction'));
     <th>
         <?php echo JHtml::_('grid.sort', 'COM_LICENSING_SOFTWARE_HEAD_NAME', 's.name', $listDirn, $listOrder); ?>
     </th>
+    <th>
+        <?php echo JHtml::_('grid.sort', 'COM_LICENSING_SOFTWARE_HEAD_TIP', 's.tip', $listDirn, $listOrder); ?>
+    </th>
     <th class="center">
         <?php echo JHtml::_('grid.sort', 'COM_LICENSING_SOFTWARE_HEAD_COUNT', 's.count', $listDirn, $listOrder); ?>
     </th>

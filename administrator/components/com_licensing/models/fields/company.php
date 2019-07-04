@@ -5,6 +5,7 @@ JFormHelper::loadFieldClass('list');
 
 class JFormFieldCompany extends JFormFieldList  {
     protected  $type = 'Company';
+    protected $loadExternally = 0;
 
     protected function getOptions()
     {
@@ -27,5 +28,11 @@ class JFormFieldCompany extends JFormFieldList  {
         $options = array_merge(parent::getOptions(), $options);
 
         return $options;
+    }
+
+    public function getOptionsExternally()
+    {
+        $this->loadExternally = 1;
+        return $this->getOptions();
     }
 }

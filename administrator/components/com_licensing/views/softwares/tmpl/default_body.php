@@ -12,6 +12,9 @@ foreach ($this->items as  $software) :
         <td>
             <?php echo $software['software']; ?>
         </td>
+        <td>
+            <?php echo $software['tip']; ?>
+        </td>
         <td class="center">
             <?php echo $software['count']; ?>
         </td>
