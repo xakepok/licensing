@@ -14,6 +14,18 @@
                 class="input-xlarge"
         />
         <field
+                name="tip"
+                type="list"
+                label="COM_LICENSING_SOFTWARE_HEAD_TIP"
+                description="COM_LICENSING_SOFTWARE_HEAD_TIP_DESC"
+                required="true"
+                class="input-xlarge">
+            <option value="">COM_LICENSING_SOFTWARE_HEAD_TIP_0</option>
+            <option value="1">COM_LICENSING_SOFTWARE_HEAD_TIP_1</option>
+            <option value="2">COM_LICENSING_SOFTWARE_HEAD_TIP_2</option>
+            <option value="3">COM_LICENSING_SOFTWARE_HEAD_TIP_3</option>
+        </field>
+        <field
                 name="name"
                 type="text"
                 label="COM_LICENSING_SOFTWARE_HEAD_NAME"

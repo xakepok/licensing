@@ -150,7 +150,8 @@ class LicensingHelper
             $app    = JApplication::getInstance('site');
             $router =& $app->getRouter();
             $url = $router->build("index.php?id={$claim->id}&Itemid={$Itemid}")->toString();
-            $eventLink = "http://ais.bmstu.ru".str_replace('/administrator', '', $url);
+            //$eventLink = "http://ais.bmstu.ru".str_replace('/administrator', '', $url);
+            $eventLink = "http://ais.bmstu.ru/example.php";
             $link = JHtml::link($eventLink, $eventLink);
             $body .= sprintf(self::getParams('notify_user_text'), $claim->id, $link);
             $mailer->addRecipient($email, $fio);

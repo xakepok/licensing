@@ -6,6 +6,7 @@ class TableLicensingSoftware extends Table
 {
     var $id = null;
     var $licenseID = null;
+    var $tip = null;
     var $name = null;
     var $count = null;
     var $countAvalible = null;
