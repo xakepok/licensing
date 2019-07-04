@@ -4,7 +4,7 @@ extract($displayData);
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_licensing&view=licenses'); ?>" method="post" name="adminForm" id="adminForm">
     <div id="forPrint">
-        <table style="border-collapse: collapse; width: 100%;">
+        <table class="table table-stripped">
             <thead>
                 <tr>
                     <th>
@@ -36,14 +36,14 @@ extract($displayData);
             <tdoby>
                 <?php foreach ($licenses as $license): ?>
                 <tr>
-                    <td style="border: 1px solid black;"><?php echo $license['name'];?></td>
-                    <td style="border: 1px solid black;"><?php echo $license['type'];?></td>
-                    <td style="border: 1px solid black;"><?php echo $license['number'];?></td>
-                    <td style="border: 1px solid black;"><?php echo $license['contract'];?></td>
-                    <td style="border: 1px solid black;"><?php echo $license['freeware'];?></td>
-                    <td style="border: 1px solid black;"><?php echo $license['files'];?></td>
-                    <td style="border: 1px solid black;"><?php echo $license['dateStart'];?></td>
-                    <td style="border: 1px solid black;"><?php echo $license['dateExpires'];?></td>
+                    <td><?php echo $license['name'];?></td>
+                    <td><?php echo $license['type'];?></td>
+                    <td><?php echo $license['number'];?></td>
+                    <td><?php echo $license['contract'];?></td>
+                    <td><?php echo $license['freeware'];?></td>
+                    <td><?php echo $license['files'];?></td>
+                    <td><?php echo $license['dateStart'];?></td>
+                    <td><?php echo $license['dateExpires'];?></td>
                 </tr>
                 <?php endforeach; ?>
             </tdoby>

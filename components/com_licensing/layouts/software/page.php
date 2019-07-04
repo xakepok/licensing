@@ -2,13 +2,17 @@
 defined('_JEXEC') or die;
 extract($displayData);
 ?>
+
 <form action="<?php echo JRoute::_('index.php?option=com_licensing&view=software'); ?>" method="post" name="adminForm" id="adminForm">
     <div id="forPrint">
-        <table style="border-collapse: collapse; width: 100%;">
+        <table class="table table-stripped">
             <thead>
                 <tr>
                     <th>
                         <?php echo JHtml::_('grid.sort', 'COM_LICENSING_LICENSES_PROD_NAME', '`software`', $listDirn, $listOrder); ?>
+                    </th>
+                    <th>
+                        <?php echo JHtml::_('grid.sort', 'COM_LICENSING_SOFTWARE_HEAD_TIP', '`tip`', $listDirn, $listOrder); ?>
                     </th>
                     <th>
                         <?php echo JText::_('COM_LICENSING_LICENSES_LIC_COUNT'); ?>
@@ -33,13 +37,14 @@ extract($displayData);
             <tdoby>
                 <?php foreach ($software as $soft): ?>
                 <tr>
-                    <td style="border: 1px solid black;"><?php echo $soft['software'];?></td>
-                    <td style="border: 1px solid black;"><?php echo $soft['cnt'];?></td>
-                    <td style="border: 1px solid black;"><?php echo $soft['license'];?></td>
-                    <td style="border: 1px solid black;"><?php echo $soft['number'];?></td>
-                    <td style="border: 1px solid black;"><?php echo $soft['contract'];?></td>
-                    <td style="border: 1px solid black;"><?php echo $soft['dateStart'];?></td>
-                    <td style="border: 1px solid black;"><?php echo $soft['dateExpires'];?></td>
+                    <td><?php echo $soft['software'];?></td>
+                    <td><?php echo $soft['tip'];?></td>
+                    <td><?php echo $soft['cnt'];?></td>
+                    <td><?php echo $soft['license'];?></td>
+                    <td><?php echo $soft['number'];?></td>
+                    <td><?php echo $soft['contract'];?></td>
+                    <td><?php echo $soft['dateStart'];?></td>
+                    <td><?php echo $soft['dateExpires'];?></td>
                 </tr>
                 <?php endforeach; ?>
             </tdoby>
