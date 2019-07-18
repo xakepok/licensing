@@ -9,13 +9,13 @@ class LicensingModelSoftware extends ListModel
         if (empty($config['filter_fields']))
         {
             $config['filter_fields'] = array(
-                '`software`',
-                '`license`',
-                '`number`',
-                '`start`',
-                'tip',
+                's.name',
+                'l.name',
+                'l.number',
+                'l.dateStart',
+                'l.dateExpires',
+                'tip', 's.tip',
                 'search',
-                '`Expire`'
             );
         }
         parent::__construct($config);

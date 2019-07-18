@@ -6,37 +6,39 @@ defined('_JEXEC') or die;
 
 HTMLHelper::_('script', 'com_licensing/script.js', array('version' => 'auto', 'relative' => true));
 HTMLHelper::_('stylesheet', 'com_licensing/style.css', array('version' => 'auto', 'relative' => true));
+$listOrder    = $this->escape($this->state->get('list.ordering'));
+$listDirn    = $this->escape($this->state->get('list.direction'));
 
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_licensing&view=software'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="/licenses/software" method="post" name="adminForm" id="adminForm">
     <?php echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));?>
     <div id="forPrint">
         <table class="table table-stripped">
             <thead>
             <tr>
                 <th>
-                    <?php echo JHtml::_('grid.sort', 'COM_LICENSING_LICENSES_PROD_NAME', '`software`', $listDirn, $listOrder); ?>
+                    <?php echo JHtml::_('grid.sort', 'COM_LICENSING_LICENSES_PROD_NAME', 's.name', $listDirn, $listOrder); ?>
                 </th>
                 <th>
-                    <?php echo JHtml::_('grid.sort', 'COM_LICENSING_SOFTWARE_HEAD_TIP', '`tip`', $listDirn, $listOrder); ?>
+                    <?php echo JHtml::_('grid.sort', 'COM_LICENSING_SOFTWARE_HEAD_TIP', 's.tip', $listDirn, $listOrder); ?>
                 </th>
                 <th>
-                    <?php echo JText::_('COM_LICENSING_LICENSES_LIC_COUNT'); ?>
+                    <?php echo JText::sprintf('COM_LICENSING_LICENSES_LIC_COUNT'); ?>
                 </th>
                 <th>
-                    <?php echo JHtml::_('grid.sort', 'COM_LICENSING_LICENSES_LIC_NAME', '`license`', $listDirn, $listOrder); ?>
+                    <?php echo JHtml::_('grid.sort', 'COM_LICENSING_LICENSES_LIC_NAME', 'l.name', $listDirn, $listOrder); ?>
                 </th>
                 <th>
-                    <?php echo JHtml::_('grid.sort', 'COM_LICENSING_LICENSES_LIC_NUMBER', '`number`', $listDirn, $listOrder); ?>
+                    <?php echo JHtml::_('grid.sort', 'COM_LICENSING_LICENSES_LIC_NUMBER', 'l.number', $listDirn, $listOrder); ?>
                 </th>
                 <th>
-                    <?php echo JText::_('COM_LICENSING_LICENSES_LIC_DOGOVOR'); ?>
+                    <?php echo JText::sprintf('COM_LICENSING_LICENSES_LIC_DOGOVOR'); ?>
                 </th>
                 <th>
-                    <?php echo JHtml::_('grid.sort', 'COM_LICENSING_LICENSES_LIC_START', '`start`', $listDirn, $listOrder); ?>
+                    <?php echo JHtml::_('grid.sort', 'COM_LICENSING_LICENSES_LIC_START', 'l.dateStart', $listDirn, $listOrder); ?>
                 </th>
                 <th>
-                    <?php echo JHtml::_('grid.sort', 'COM_LICENSING_LICENSES_LIC_EXP', '`Expire`', $listDirn, $listOrder); ?>
+                    <?php echo JHtml::_('grid.sort', 'COM_LICENSING_LICENSES_LIC_EXP', 'l.dateExpires', $listDirn, $listOrder); ?>
                 </th>
             </tr>
             </thead>
