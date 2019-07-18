@@ -14,6 +14,7 @@ class LicensingModelSoftware extends ListModel
                 '`number`',
                 '`start`',
                 'tip',
+                'search',
                 '`Expire`'
             );
         }
@@ -38,8 +39,8 @@ class LicensingModelSoftware extends ListModel
         $search = $this->getState('filter.search');
         if (!empty($search))
         {
-            $search = $db->quote('%' . $db->escape($search, true) . '%', false);
-            $query->where('`software` LIKE ' . $search . ' OR `license` LIKE ' . $search);
+            $search = $db->q("%{$search}%");
+            $query->where("`s`.`name` LIKE {$search}");
         }
         // Фильтруем по типу ПО.
         $tip = $this->getState('filter.tip');
