@@ -13,6 +13,7 @@ class LicensingModelSoftware extends ListModel
                 '`license`',
                 '`number`',
                 '`start`',
+                'tip',
                 '`Expire`'
             );
         }
@@ -39,6 +40,13 @@ class LicensingModelSoftware extends ListModel
         {
             $search = $db->quote('%' . $db->escape($search, true) . '%', false);
             $query->where('`software` LIKE ' . $search . ' OR `license` LIKE ' . $search);
+        }
+        // Фильтруем по типу ПО.
+        $tip = $this->getState('filter.tip');
+        if (is_numeric($tip))
+        {
+            if ($tip == 0) $query->where('`s`.`tip` is null');
+            if ($tip != 0) $query->where('`s`.`tip` = ' . (int) $tip);
         }
 
         /* Сортировка */
@@ -102,12 +110,15 @@ class LicensingModelSoftware extends ListModel
     {
         $search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
         $this->setState('filter.search', $search);
+        $tip = $this->getUserStateFromRequest($this->context . '.filter.tip', 'filter_tip', '', 'string');
+        $this->setState('filter.tip', $tip);
         parent::populateState('`software`', 'asc');
     }
 
     protected function getStoreId($id = '')
     {
         $id .= ':' . $this->getState('filter.search');
+        $id .= ':' . $this->getState('filter.tip');
         return parent::getStoreId($id);
     }
 }
